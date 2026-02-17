@@ -1,3 +1,4 @@
+"use client";
 import { Layout } from "@/components/Layout";
 import { useParams, useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";

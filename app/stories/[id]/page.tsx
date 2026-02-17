@@ -1,3 +1,4 @@
+"use client";
 import { useParams } from "next/navigation";
 import { Layout } from "@/components/Layout";
 import { stories, formatDate, formatNumber } from "@/app/lib/mock-data";

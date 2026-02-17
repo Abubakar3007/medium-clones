@@ -1,3 +1,4 @@
+"use client";
 import { Layout } from "@/components/Layout";
 import { StoryCard } from "@/components/StoryCard";
 import { stories, authors, topics } from "@/app/lib/mock-data";
