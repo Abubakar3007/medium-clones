@@ -1,11 +1,12 @@
 "use client";
+
 import { Layout } from "@/components/Layout";
 import { useParams, useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { authors } from "@/app/lib/mock-data";
 import { MessageCircle, Share, MoreHorizontal, Bookmark } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useToast } from "@/app/hooks/use-toast";
 
 const ListDetailPage = () => {
@@ -13,14 +14,20 @@ const ListDetailPage = () => {
   const router = useRouter();
   const { toast } = useToast();
   const author = authors[0];
-  const [listName] = useState(() => {
-    const stored = localStorage.getItem(`list_${id}_name`);
-    return stored || "Reading list";
-  });
-  const [isPrivate, setIsPrivate] = useState(() => {
-    const stored = localStorage.getItem(`list_${id}_private`);
-    return stored === "true";
-  });
+
+  const [listName, setListName] = useState("Reading list");
+  const [isPrivate, setIsPrivate] = useState(false);
+
+  // ✅ Safe localStorage access (client only)
+  useEffect(() => {
+    if (!id) return;
+
+    const storedName = localStorage.getItem(`list_${id}_name`);
+    const storedPrivate = localStorage.getItem(`list_${id}_private`);
+
+    if (storedName) setListName(storedName);
+    if (storedPrivate) setIsPrivate(storedPrivate === "true");
+  }, [id]);
 
   const handleDelete = () => {
     toast({ title: "List deleted" });
@@ -33,9 +40,10 @@ const ListDetailPage = () => {
   };
 
   const handleTogglePrivate = () => {
-    setIsPrivate(!isPrivate);
-    localStorage.setItem(`list_${id}_private`, String(!isPrivate));
-    toast({ title: isPrivate ? "List is now public" : "List is now private" });
+    const newValue = !isPrivate;
+    setIsPrivate(newValue);
+    localStorage.setItem(`list_${id}_private`, String(newValue));
+    toast({ title: newValue ? "List is now private" : "List is now public" });
   };
 
   return (
@@ -50,7 +58,11 @@ const ListDetailPage = () => {
           <div>
             <p className="font-medium text-sm">{author.name}</p>
             <p className="text-xs text-muted-foreground">
-              {new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+              {new Date().toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+              })}
             </p>
           </div>
         </div>
@@ -68,30 +80,46 @@ const ListDetailPage = () => {
               <MessageCircle className="h-5 w-5" />
             </button>
           </div>
+
           <div className="flex items-center gap-4">
             <button className="text-muted-foreground hover:text-foreground">
               <Share className="h-5 w-5" />
             </button>
+
             <Popover>
               <PopoverTrigger asChild>
                 <button className="text-muted-foreground hover:text-foreground">
                   <MoreHorizontal className="h-5 w-5" />
                 </button>
               </PopoverTrigger>
+
               <PopoverContent align="end" className="w-48 p-1">
-                <button onClick={handleCopyLink} className="w-full text-left px-4 py-2.5 text-sm hover:bg-accent rounded-sm">
+                <button
+                  onClick={handleCopyLink}
+                  className="w-full text-left px-4 py-2.5 text-sm hover:bg-accent rounded-sm"
+                >
                   Copy link
                 </button>
+
                 <button className="w-full text-left px-4 py-2.5 text-sm hover:bg-accent rounded-sm">
                   Edit list info
                 </button>
-                <button onClick={handleTogglePrivate} className="w-full text-left px-4 py-2.5 text-sm hover:bg-accent rounded-sm">
+
+                <button
+                  onClick={handleTogglePrivate}
+                  className="w-full text-left px-4 py-2.5 text-sm hover:bg-accent rounded-sm"
+                >
                   {isPrivate ? "Make list public" : "Make list private"}
                 </button>
+
                 <button className="w-full text-left px-4 py-2.5 text-sm hover:bg-accent rounded-sm">
                   Hide responses
                 </button>
-                <button onClick={handleDelete} className="w-full text-left px-4 py-2.5 text-sm text-destructive hover:bg-accent rounded-sm">
+
+                <button
+                  onClick={handleDelete}
+                  className="w-full text-left px-4 py-2.5 text-sm text-destructive hover:bg-accent rounded-sm"
+                >
                   Delete list
                 </button>
               </PopoverContent>
@@ -103,7 +131,8 @@ const ListDetailPage = () => {
         <div className="border border-dashed border-divider rounded-lg py-16 px-8 text-center">
           <p className="text-muted-foreground">
             Add your favorite stories to your list. Simply click the{" "}
-            <Bookmark className="h-4 w-4 inline-block mx-1" /> on any story to get started.
+            <Bookmark className="h-4 w-4 inline-block mx-1" /> on any story to get
+            started.
           </p>
         </div>
       </div>
