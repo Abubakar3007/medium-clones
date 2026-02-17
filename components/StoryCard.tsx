@@ -1,4 +1,5 @@
-import { Bookmark, MoreHorizontal, Star, MessageCircle, ThumbsDown } from "lucide-react";
+"use client";
+import { Bookmark, MoreHorizontal, MessageCircle, ThumbsDown } from "lucide-react";
 import { Story, formatDate } from "@/app/lib/mock-data";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useState } from "react";
