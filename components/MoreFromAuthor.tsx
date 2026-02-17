@@ -1,6 +1,7 @@
+"use client";
 import { stories, formatDate, formatNumber, Story, Author } from "@/app/lib/mock-data";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Bookmark, MessageCircle, MoreHorizontal, Star, ThumbsUp } from "lucide-react";
+import { Bookmark, MoreHorizontal, Star, ThumbsUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from 'next/link';
 

@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { X, Facebook, Linkedin, Link as LinkIcon } from "lucide-react";
 import { useRouter } from "next/navigation";

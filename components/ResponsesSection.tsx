@@ -1,7 +1,8 @@
+"use client";
 import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ThumbsUp, MoreHorizontal, Settings } from "lucide-react";
-import { authors, formatDate } from "@/app/lib/mock-data";
+import { formatDate } from "@/app/lib/mock-data";
 import { Button } from "@/components/ui/button";
 
 export interface Comment {

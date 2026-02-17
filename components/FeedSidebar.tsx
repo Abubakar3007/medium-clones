@@ -1,4 +1,5 @@
-import { stories, topics, trendingTags, formatNumber, authors } from "@/app/lib/mock-data";
+"use client";
+import { stories, topics, trendingTags, authors } from "@/app/lib/mock-data";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { TrendingUp } from "lucide-react";
 import { ReadingListSidebar } from "@/components/ReadingListSidebar";

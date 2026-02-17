@@ -1,3 +1,4 @@
+"use client";
 import { stories, formatDate } from "@/app/lib/mock-data";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Star } from "lucide-react";

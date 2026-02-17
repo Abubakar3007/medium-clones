@@ -1,7 +1,9 @@
+"use client";
 import { useState } from "react";
 import { X, Settings, ThumbsUp, MoreHorizontal, ChevronDown } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { formatDate } from "@/app/lib/mock-data";
+import { Button } from "@/components/ui/button";
 
 interface Comment {
   id: string;
