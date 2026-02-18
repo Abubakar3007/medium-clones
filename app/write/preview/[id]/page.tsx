@@ -3,7 +3,7 @@ import { useState } from "react";
 import { X, Facebook, Linkedin, Link as LinkIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { topics } from "@/app/lib/mock-data";
-import Link from "next/link";
+import { useParams } from "next/navigation";
 
 interface PublishModalProps {
   open: boolean;
@@ -19,6 +19,8 @@ export function PublishModal({ open, onClose, title, content, coverImage }: Publ
   const [topicInput, setTopicInput] = useState("");
   const [published, setPublished] = useState(false);
   const [copied, setCopied] = useState(false);
+  const params = useParams();
+  const id = params.id;
 
   const toggleTopic = (topic: string) => {
     if (selectedTopics.includes(topic)) {
@@ -33,7 +35,7 @@ export function PublishModal({ open, onClose, title, content, coverImage }: Publ
   };
 
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(window.location.origin + "/story/1");
+    navigator.clipboard.writeText(window.location.origin + "/story/" + id);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -41,78 +43,51 @@ export function PublishModal({ open, onClose, title, content, coverImage }: Publ
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-white flex items-start justify-center overflow-y-auto">
-
+    <div className="fixed inset-0 z-50 bg-background flex items-start justify-center overflow-y-auto">
+      <button onClick={onClose} className="absolute top-6 right-6 text-muted-foreground hover:text-foreground">
+        <X className="h-6 w-6" />
+      </button>
 
       {!published ? (
-        <div className="w-full max-w-[1192px] mx-auto px-6 h-full items-center flex flex-col md:flex-row relative gap-20 justify-center">
-          {/* close popup button */}
-          <button onClick={onClose} className="absolute top-16 right-6 text-neutral-500 stroke-1">
-            <X className="h-6 w-6" />
-          </button>
-
+        <div className="w-full max-w-[900px] mx-auto px-6 py-20 flex flex-col md:flex-row gap-12">
           {/* Left - Preview */}
-          <div className="max-w-[440px] w-full">
-            <h3 className="text-xl font-bold mb-8">Story preview</h3>
-
-            <div className="bg-neutral-300/40 rounded py-20 px-16 flex items-center justify-center mb-4 overflow-hidden">
+          <div className="flex-1">
+            <h3 className="text-lg font-bold mb-4">Story Preview</h3>
+            <div className="bg-secondary/40 rounded aspect-[16/9] flex items-center justify-center mb-4 overflow-hidden">
               {coverImage ? (
                 <img src={coverImage} alt="" className="w-full h-full object-cover" />
               ) : (
-                <p className="text-sm text-neutral-500">
+                <p className="text-sm text-muted-foreground text-center px-8">
                   Include a high-quality image in your story to make it more inviting to readers.
                 </p>
               )}
             </div>
-            <div className="mb-6">
-              {/* title */}
-              <h4 className="font-bold text-lg mb-2 border-b border-divider pb-2">
-                {title || "Untitled story"}
-              </h4>
-              {/* count title text */}
-              <p className="text-xs text-neutral-500 mb-2"><span>23</span>/<span>100</span></p>
-            </div>
-
-            {/* description */}
-            <div className="mb-6">
-              {
-                content ? (
-                  <p className="text-sm text-muted-foreground line-clamp-3 border-b border-divider pb-2">{content.slice(0, 140)}...</p>
-                ) : (
-                  <input
-                    className="border-b border-divider pb-3 w-full outline-none"
-                    placeholder="Write a preview subtitle..."
-                  />
-                )
-              }
-              <p className="text-xs text-neutral-500 mt-2">{content.length}/140</p>
-            </div>
-            <p className="text-xs text-neutral-500 leading-5 font-light mt-4">
+            <h4 className="font-bold font-serif text-lg mb-2 border-b border-divider pb-2">
+              {title || "Untitled story"}
+            </h4>
+            <p className="text-sm text-muted-foreground line-clamp-3">{content.slice(0, 140)}...</p>
+            <p className="text-xs text-muted-foreground mt-2">{content.length}/140</p>
+            <p className="text-xs text-muted-foreground mt-4">
               <strong>Note:</strong> Changes here will affect how your story appears in public places like Medium's
               homepage and in subscribers' inboxes — not the contents of the story itself.
             </p>
           </div>
 
           {/* Right - Publishing options */}
-          <div className="flex-1 max-w-[440px] w-full">
-
-            {/* add topic */}
-            <div className="pb-8 mb-8 border-b border-divider">
-              <h3 className="text-base mb-3">Topics</h3>
-              <p className="text-neutral-500 font-light mb-4">Add up to five topics to help readers find your story.</p>
-              <input
-                type="text"
-                value={topicInput}
-                onChange={(e) => setTopicInput(e.target.value)}
-                placeholder="Add a topic..."
-                className="w-full border border-input rounded-lg px-4 h-14 text-sm outline-none mb-2 bg-neutral-100"
-              />
-            </div>
-
-            <div className="pb-8 mb-8 border-b border-divider">
-              <h3 className="text-base mb-3">Publication</h3>
-              <p className="text-neutral-500 font-light mb-4"><Link href="" className="underline">Submit</Link> your story to connect with community.</p>
-            </div>
+          <div className="flex-1 max-w-[360px]">
+            <p className="text-sm mb-1">
+              Publishing to: <strong>You</strong>
+            </p>
+            <p className="text-sm text-muted-foreground mb-4">
+              Add or change topics (up to 5) so readers know what your story is about
+            </p>
+            <input
+              type="text"
+              value={topicInput}
+              onChange={(e) => setTopicInput(e.target.value)}
+              placeholder="Add a topic..."
+              className="w-full border border-input rounded-lg px-4 py-2.5 text-sm outline-none mb-2 bg-background focus:ring-1 focus:ring-foreground/10"
+            />
             {topicInput && (
               <div className="flex flex-wrap gap-1 mb-3">
                 {topics
@@ -147,15 +122,14 @@ export function PublishModal({ open, onClose, title, content, coverImage }: Publ
                 ))}
               </div>
             )}
-            <p className="my-6 text-neutral-500"><Link href="" className="underline">Learn</Link> more about what happens to your post when you publish.</p>
             <div className="flex items-center gap-3 mt-6">
               <button
                 onClick={handlePublish}
-                className="rounded-full bg-black px-6 py-2.5 text-sm font-medium text-white hover:bg-black/90 transition-colors"
+                className="rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
               >
                 Publish now
               </button>
-              <button className="text-sm text-neutral-500 underline">Schedule for later</button>
+              <button className="text-sm text-muted-foreground hover:text-foreground">Schedule for later</button>
             </div>
           </div>
         </div>

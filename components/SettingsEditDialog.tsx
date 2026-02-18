@@ -2,7 +2,9 @@
 import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { X } from 'lucide-react';
 
 interface SettingsEditDialogProps {
   open: boolean;
@@ -18,25 +20,34 @@ export function SettingsEditDialog({ open, onOpenChange, title, value, descripti
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[440px] p-0 rounded-lg">
-        <DialogHeader className="px-6 pt-6 pb-0">
-          <DialogTitle className="text-base font-semibold text-center">{title}</DialogTitle>
+      <DialogContent className="max-w-[540px] p-0 rounded-lg">
+        <DialogHeader className="px-6 pt-10 pb-0">
+          <DialogTitle className="text-xl text-center font-medium">{title}</DialogTitle>
         </DialogHeader>
-        <div className="px-6 pb-6 pt-4 space-y-4">
+
+        <div className="px-8 pb-8 pt-4 space-y-3">
+          <Label htmlFor="name" className="mb-2 block">Username</Label>
           <Input
             type={type}
-            value={fieldValue}
+            value={value || fieldValue}
             onChange={(e) => setFieldValue(e.target.value)}
-            className="rounded-md"
           />
           {description && (
             <p className="text-xs text-muted-foreground">{description}</p>
           )}
           <div className="flex items-center justify-end gap-3 pt-2">
-            <Button variant="outline" className="rounded-full" onClick={() => onOpenChange(false)}>
+            {/* Cancel button */}
+            <Button
+              variant="ghost"
+              onClick={() => onOpenChange(false)}
+            >
               Cancel
             </Button>
-            <Button className="rounded-full bg-primary text-primary-foreground" onClick={() => onOpenChange(false)}>
+            {/* Save button */}
+            <Button
+              variant="secondary"
+              onClick={() => onOpenChange(false)}
+            >
               Save
             </Button>
           </div>

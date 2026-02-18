@@ -1,6 +1,23 @@
 import { Button } from "@/components/ui/button"
 import Link from "next/link";
-const links = ["Our story", "Membership", "Write", "Sign In"];
+const links = [
+  {
+    text:"Our story",
+    link:"/feed",
+  },
+  {
+    text:"Membership",
+    link:"/membership",
+  },
+  {
+    text:"Write",
+    link:"/write",
+  },
+  {
+    text:"Sign In",
+    link:"/sign-in",
+  }
+]
 const footerLinks = ["Help", "Status", "About", "Careers", "Press", "Blog", "Privacy", "Rules", "Terms", "Text to speech"];
 
 const page = () => {
@@ -13,8 +30,8 @@ const page = () => {
             <ul className="flex gap-6 text-sm">
               {
                 links.map((link) => (
-                  <li key={link}>
-                    <Link href="/">{link}</Link>
+                  <li key={link.text}>
+                    <Link href={link.link}>{link.text}</Link>
                   </li>
                 ))
               }

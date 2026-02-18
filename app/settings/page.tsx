@@ -33,14 +33,14 @@ const SettingsPage = () => {
             <h1 className="text-[42px] font-bold mb-14 animate-fade-in">Settings</h1>
 
             {/* Tabs */}
-            <nav className="flex items-center gap-6 border-b border-divider mb-4 overflow-x-auto scrollbar-none">
+            <nav className="flex items-center gap-8 border-b border-divider mb-4 overflow-x-auto scrollbar-none">
               {tabs.map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
                   className={`pb-4 text-sm whitespace-nowrap transition-colors relative ${activeTab === tab
                     ? "text-foreground"
-                    : "text-neutral-500 hover:text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
                     }`}
                 >
                   {tab}
@@ -57,7 +57,7 @@ const SettingsPage = () => {
                 {/* email */}
                 <SettingsRow
                   label="Email address"
-                  value="john@example.com"
+                  value="bakarazmi@gmail.com"
                   onClick={() => openEdit("Email address", "abubakarshaikh@gmail.com", "You can sign into Medium with this email address.")}
                 />
 
@@ -65,7 +65,7 @@ const SettingsPage = () => {
                 <SettingsRow
                   label="Username and subdomain"
                   value="@abubakarshaikh"
-                  onClick={() => openEdit("Username", "@abubakarshaikh")}
+                  onClick={() => openEdit("Username and subdomain", "@abubakarshaikh")}
                 />
 
                 {/* profile information */}
@@ -88,7 +88,8 @@ const SettingsPage = () => {
                 <SettingsRow
                   label="Profile design"
                   description="Customize the appearance of your profile."
-                  rightContent={<ExternalLink className="h-4 w-4 text-neutral-500 stroke-1" />}
+                  type
+                  rightContent={<ExternalLink className="h-4 w-4 text-muted-foreground stroke-2" />}
                 />
 
                 {/* custom domain */}
@@ -97,8 +98,8 @@ const SettingsPage = () => {
                   description="Upgrade to a Medium Membership to redirect your profile URL to a domain like yourdomain.com."
                   rightContent={
                     <div className="flex items-center gap-2">
-                      <span className="text-sm text-neutral-500">None</span>
-                      <ExternalLink className="h-4 w-4 text-neutral-500 stroke-1" />
+                      <span className="text-sm text-muted-foreground">None</span>
+                      <ExternalLink className="h-4 w-4 text-muted-foreground stroke-2" />
                     </div>
                   }
                 />
@@ -107,7 +108,7 @@ const SettingsPage = () => {
                 <SettingsRow
                   label="Partner Program"
                   description="You are not enrolled in the Partner Program."
-                  rightContent={<ExternalLink className="h-4 w-4 text-neutral-500 stroke-1" />}
+                  rightContent={<ExternalLink className="h-4 w-4 text-muted-foreground stroke-2" />}
                 />
 
                 {/* digest frequency */}
@@ -115,7 +116,7 @@ const SettingsPage = () => {
                   label="Your Medium Digest frequency"
                   description="Adjust how often you see a new Digest."
                   rightContent={
-                    <div className="flex items-center gap-1 text-green-700 text-sm cursor-pointer">
+                    <div className="flex items-center gap-1 text-primary text-sm cursor-pointer">
                       <span>Daily</span>
                       <ChevronDown className="h-4 w-4 ml-2" />
                     </div>
@@ -135,13 +136,13 @@ const SettingsPage = () => {
                 <SettingsRow
                   label="Refine recommendations"
                   description="Adjust recommendations by updating what you're following and more."
-                  rightContent={<ExternalLink className="h-4 w-4 text-neutral-500 stroke-1" />}
+                  rightContent={<ExternalLink className="h-4 w-4 text-muted-foreground stroke-2" />}
                 />
 
                 {/* muted writers and publications */}
                 <SettingsRow
                   label="Muted writers and publications"
-                  rightContent={<ExternalLink className="h-4 w-4 text-neutral-500 stroke-1" />}
+                  rightContent={<ExternalLink className="h-4 w-4 text-muted-foreground stroke-2" />}
                 />
 
                 {/* blocked users */}
@@ -151,12 +152,12 @@ const SettingsPage = () => {
 
                 <div className="py-4">
                   <button className="text-sm font-medium text-destructive hover:underline">Deactivate account</button>
-                  <p className="text-xs text-neutral-500 mt-1">Deactivating will suspend your account until you sign back in.</p>
+                  <p className="text-xs text-muted-foreground mt-1">Deactivating will suspend your account until you sign back in.</p>
                 </div>
 
                 <div className="py-4">
                   <button className="text-sm font-medium text-destructive hover:underline">Delete account</button>
-                  <p className="text-xs text-neutral-500 mt-1">Permanently delete your account and all of your content.</p>
+                  <p className="text-xs text-muted-foreground mt-1">Permanently delete your account and all of your content.</p>
                 </div>
               </div>
             )}
@@ -178,7 +179,7 @@ const SettingsPage = () => {
                 <SettingsRow
                   label="Manage tipping on your stories"
                   description="Readers can send you tips through the third-party platform of your choice."
-                  rightContent={<span className="text-sm text-neutral-500">Disabled</span>}
+                  rightContent={<span className="text-sm text-muted-foreground">Disabled</span>}
                 />
 
                 <Separator className="my-6" />
@@ -192,7 +193,7 @@ const SettingsPage = () => {
                 <SettingsRow
                   label="'Reply To' email address"
                   description="Shown to your subscribers when they reply."
-                  rightContent={<span className="text-sm text-neutral-500">abubakarshaikh@gmail.com</span>}
+                  rightContent={<span className="text-sm text-muted-foreground">abubakarshaikh@gmail.com</span>}
                   onClick={() => openEdit("Reply To email address", "abubakarshaikh@gmail.com")}
                 />
 
@@ -200,7 +201,7 @@ const SettingsPage = () => {
                   label="Import email subscribers"
                   description="Upload a CSV or TXT file containing up to 25,000 email addresses."
                   isLink
-                  rightContent={<ExternalLink className="h-4 w-4 text-neutral-500 stroke-1" />}
+                  rightContent={<ExternalLink className="h-4 w-4 text-muted-foreground stroke-2" />}
                 />
               </div>
             )}
@@ -208,7 +209,7 @@ const SettingsPage = () => {
             {/* Notifications Tab */}
             {activeTab === "Notifications" && (
               <div className="animate-fade-in mt-8">
-                <h2 className="text-[32px] font-bold mb-8">Email notifications</h2>
+                <h2 className="text-[32px] font-light mb-8">Email notifications</h2>
 
                 <SectionTitle>Story recommendations</SectionTitle>
 
@@ -227,15 +228,17 @@ const SettingsPage = () => {
                 <Separator className="my-6" />
 
                 <SectionTitle>From writers and publications</SectionTitle>
+
                 <SettingsRow
                   label="New stories added to lists you've saved"
                   rightContent={<Checkbox defaultChecked />}
                 />
+
                 <SettingsRow
                   label="Manage email notifications"
                   rightContent={
                     <div className="flex items-center gap-2">
-                      <span className="text-sm text-neutral-500">Emilina Lomas, Jason McBride</span>
+                      <span className="text-sm text-muted-foreground">Emilina Lomas, Jason McBride</span>
                       <div className="flex -space-x-1">
                         <Avatar className="h-6 w-6 border border-background relative z-20">
                           <AvatarImage src={authors[2].avatar} />
@@ -253,12 +256,15 @@ const SettingsPage = () => {
                 <Separator className="my-6" />
 
                 <SectionTitle>Social activity</SectionTitle>
+
                 <SettingsRow label="Follows and matching highlights" rightContent={<Checkbox defaultChecked />} />
+
                 <SettingsRow label="Replies to your responses" rightContent={<Checkbox defaultChecked />} />
+
                 <SettingsRow
                   label="Story mentions"
                   rightContent={
-                    <div className="flex items-center gap-1 text-green-700 text-sm cursor-pointer">
+                    <div className="flex items-center gap-1 text-primary text-sm cursor-pointer">
                       <span>In network</span>
                       <ChevronDown className="h-4 w-4 ml-1" />
                     </div>
@@ -268,34 +274,44 @@ const SettingsPage = () => {
                 <Separator className="my-6" />
 
                 <SectionTitle>For writers</SectionTitle>
+
                 <SettingsRow label="Activity on your published stories" rightContent={<Checkbox defaultChecked />} />
+
                 <SettingsRow label="Activity on your lists" rightContent={<Checkbox defaultChecked />} />
+
                 <SettingsRow label="From editors about featuring your stories" rightContent={<Checkbox defaultChecked />} />
 
                 <Separator className="my-6" />
 
                 <SectionTitle>For publications</SectionTitle>
+
                 <SettingsRow label="New submissions" rightContent={<Checkbox defaultChecked />} />
 
                 <Separator className="my-6" />
 
                 <SectionTitle>For Submission</SectionTitle>
+
                 <SettingsRow label="Submission status changes" rightContent={<Checkbox defaultChecked />} />
 
                 <Separator className="my-6" />
 
                 <SectionTitle>Others from medium</SectionTitle>
+
                 <SettingsRow label="New product features from Medium" rightContent={<Checkbox defaultChecked />} />
+
                 <SettingsRow label="Infromation about mediu memberhip" rightContent={<Checkbox defaultChecked />} />
+
                 <SettingsRow label="Writing updates and announcements" rightContent={<Checkbox defaultChecked />} />
 
                 <Separator className="my-6" />
 
                 <SectionTitle>Allow email notifications</SectionTitle>
+
                 <SettingsRow label="You will stil recieve administrative emails even if this settings is off" rightContent={<Checkbox defaultChecked />} />
 
                 <h2 className="text-[32px] font-bold mt-16">Push notifications</h2>
-                <p className="text-neutral-500 text-sm mt-8">Open the Medium app from your mobile device to make changes to push notifications.</p>
+
+                <p className="text-muted-foreground text-sm mt-8">Open the Medium app from your mobile device to make changes to push notifications.</p>
               </div>
             )}
 
@@ -306,7 +322,7 @@ const SettingsPage = () => {
                   label="Upgrade to a Medium Membership"
                   description="Subscribe for unlimited access to the smartest writers and biggest ideas on Medium."
                   isLink
-                  rightContent={<ExternalLink className="h-4 w-4 text-neutral-500 stroke-1" />}
+                  rightContent={<ExternalLink className="h-4 w-4 text-muted-foreground stroke-2" />}
                 />
               </div>
             )}
@@ -314,12 +330,11 @@ const SettingsPage = () => {
             {/* Security Tab */}
             {activeTab === "Security and apps" && (
               <div className="animate-fade-in space-y-0">
-                <SettingsRow
-                  label="Sign out of all other sessions"
-                  description="Sign out of sessions in other browsers or on other computers."
-                  isLink
-                  labelBold
-                />
+                <div className="py-4">
+                  <button className="text-sm font-medium text-destructive hover:underline">Sign out of all other sessions</button>
+                  <p className="text-xs text-muted-foreground mt-1">Sign out of sessions in other browsers or on other computers.</p>
+                </div>
+
                 <SettingsRow
                   label="Download your information"
                   description="Download a copy of the information you've shared on Medium to a .zip file."
@@ -332,47 +347,52 @@ const SettingsPage = () => {
                   icon={<span className="text-2xl w-6 grid place-i">Ⓜ</span>}
                   label="Create Mastodon account on @me.dm"
                   description="Join our premium instance exclusively for Medium members at me.dm."
-                  rightContent={<ExternalLink className="h-4 w-4 text-neutral-500 stroke-1" />}
+                  rightContent={<ExternalLink className="h-4 w-4 text-muted-foreground stroke-2" />}
                 />
+
                 <SocialRow
                   icon={<span className="text-2xl w-6 grid place-items-center">Ⓜ</span>}
                   label="Connect Mastodon"
                   description="Add an existing Mastodon account from another instance."
                 />
+
                 <SocialRow
                   icon={<span className="text-2xl w-6 grid place-items-center font-bold text-[hsl(var(--primary))]">f</span>}
                   label="Connect Facebook"
                   description="We will never post to Facebook or message your friends without your permission."
-                  rightContent={<ExternalLink className="h-4 w-4 text-neutral-500 stroke-1" />}
+                  rightContent={<ExternalLink className="h-4 w-4 text-muted-foreground stroke-2" />}
                 />
+
                 <SocialRow
                   icon={<span className="text-2xl w-6 grid place-items-center font-bold">𝕏</span>}
                   label="Connect X"
                   description="We will never post to X or message your followers without your permission."
-                  rightContent={<ExternalLink className="h-4 w-4 text-neutral-500 stroke-1" />}
+                  rightContent={<ExternalLink className="h-4 w-4 text-muted-foreground stroke-2" />}
                 />
+
                 <SocialRow
                   icon={<span className="text-2xl w-6 grid place-items-center">G</span>}
                   label="Disconnect Google"
                   labelColor="text-primary"
                   description="You can now sign in to Medium using your Google account."
-                  rightContent={<span className="text-sm text-neutral-500">john@example.com</span>}
+                  rightContent={<span className="text-sm text-muted-foreground">john@example.com</span>}
                 />
               </div>
             )}
           </div>
         </div>
+
         {/* Right Sidebar - Suggested help articles */}
-        <aside className="hidden lg:block w-[368px] flex-shrink-0 pl-10 border-l border-divider">
+        <aside className="hidden lg:block w-[368px] shrink-0 pl-10 border-l border-divider">
           <div className="sticky top-20 pt-10">
             <h4 className="font-bold text-base mb-8">Suggested help articles</h4>
 
             <div className="space-y-4">
-              <a href="#" className="block text-sm text-muted-foreground hover:text-foreground">Sign in or sign up to Medium</a>
-              <a href="#" className="block text-sm text-muted-foreground hover:text-foreground">Your profile page</a>
-              <a href="#" className="block text-sm text-muted-foreground hover:text-foreground">Writing and publishing your first story</a>
-              <a href="#" className="block text-sm text-muted-foreground hover:text-foreground">About Medium's distribution system</a>
-              <a href="#" className="block text-sm text-muted-foreground hover:text-foreground">Get started with the Partner Program</a>
+              <a href="#" className="block text-sm">Sign in or sign up to Medium</a>
+              <a href="#" className="block text-sm">Your profile page</a>
+              <a href="#" className="block text-sm">Writing and publishing your first story</a>
+              <a href="#" className="block text-sm">About Medium's distribution system</a>
+              <a href="#" className="block text-sm">Get started with the Partner Program</a>
             </div>
           </div>
         </aside>
@@ -396,38 +416,22 @@ const SettingsPage = () => {
   );
 };
 
-function SettingsRow({
-  label,
-  description,
-  value,
-  onClick,
-  rightContent,
-  isLink,
-  labelBold,
-}: {
-  label: string;
-  description?: string;
-  value?: string;
-  onClick?: () => void;
-  rightContent?: React.ReactNode;
-  isLink?: boolean;
-  labelBold?: boolean;
-}) {
+function SettingsRow({ label, description, value, onClick, rightContent, isLink, type, labelBold, }: { label: string; description?: string; value?: string; onClick?: () => void; rightContent?: React.ReactNode; isLink?: boolean; type?: boolean; labelBold?: boolean; }) {
   return (
     <div
       className={`flex items-start justify-between py-4 ${onClick ? "cursor-pointer" : ""}`}
       onClick={onClick}
     >
       <div className="flex-1 min-w-0 pr-4">
-        <p className={`text-sm ${labelBold || isLink ? "font-bold" : "font-medium"} ${isLink ? "text-primary hover:underline cursor-pointer" : ""}`}>
+        <p className={`text-sm ${labelBold || isLink ? "font-medium" : "font-light"} ${isLink ? "hover:underline cursor-pointer" : ""}`}>
           {label}
         </p>
         {description && (
-          <p className="text-xs text-neutral-500 mt-1">{description}</p>
+          <p className="text-xs text-muted-foreground mt-1">{description}</p>
         )}
       </div>
       <div className="flex items-center gap-2 shrink-0">
-        {value && <span className="text-sm text-neutral-500 font-light">{value}</span>}
+        {value && <span className="text-sm text-muted-foreground font-light">{value}</span>}
         {rightContent}
       </div>
     </div>
@@ -435,28 +439,16 @@ function SettingsRow({
 }
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
-  return <h3 className="font-bold text-base mb-2">{children}</h3>;
+  return <h3 className="font-medium text-base mb-2">{children}</h3>;
 }
 
-function SocialRow({
-  icon,
-  label,
-  description,
-  rightContent,
-  labelColor,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  description: string;
-  rightContent?: React.ReactNode;
-  labelColor?: string;
-}) {
+function SocialRow({ icon, label, description, rightContent, labelColor, }: { icon: React.ReactNode; label: string; description: string; rightContent?: React.ReactNode; labelColor?: string; }) {
   return (
     <div className="flex items-start gap-6 py-4">
       <div className="flex-shrink-0">{icon}</div>
       <div className="flex-1 min-w-0">
         <p className={`text-sm font-bold ${labelColor || ""}`}>{label}</p>
-        <p className="text-xs text-neutral-500 mt-1">{description}</p>
+        <p className="text-xs text-muted-foreground mt-1">{description}</p>
       </div>
       {rightContent && <div className="flex-shrink-0">{rightContent}</div>}
     </div>

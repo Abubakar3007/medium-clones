@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const navItems = [
-  { label: "Home", icon: Home, path: "/" },
+  { label: "Home", icon: Home, path: "feed" },
   { label: "Library", icon: BookOpen, path: "library" },
   { label: "Profile", icon: User, path: "profile" },
   { label: "Stories", icon: FileText, path: "stories" },
@@ -35,7 +35,7 @@ export function LeftSidebar() {
   };
 
   return (
-    <aside className="hidden xl:block w-[240px] flex-shrink-0 pt-10 border-r border-divider sticky top-10 overflow-y-auto h-screen pb-12">
+    <aside className="hidden xl:block w-[240px] shrink-0 pt-10 border-r border-divider sticky top-10 overflow-y-auto h-screen pb-12">
       <div className="pb-10">
         <nav className="space-y-5">
           {navItems.map((item) => {
@@ -47,15 +47,8 @@ export function LeftSidebar() {
                 href={item.path}
                 className={`flex items-center gap-4 pl-7 pr-6 leading-6 text-base transition-colors relative ${active ? "text-black font-medium" : "text-neutral-500 hover:text-black"}`}
               >
-                {active && (
-                  <div className="absolute left-[2px] w-[1px] h-6 top-0 bg-black"></div>
-                )}
-
-                <item.icon
-                  className={`h-6 w-6 stroke-1 ${active ? "fill-black text-black" : ""
-                    }`}
-                />
-
+                {active && <div className="absolute left-[2px] w-px h-6 top-0 bg-black"></div>}
+                <item.icon className={`h-6 w-6 stroke-1 ${active ? "fill-black text-black" : ""}`} />
                 <span>{item.label}</span>
               </Link>
             );
@@ -76,7 +69,7 @@ export function LeftSidebar() {
           </Link>
 
           <div className="space-y-2">
-              {authors.slice(0, visibleCount).map((author) => (
+            {authors.slice(0, visibleCount).map((author) => (
               <Link
                 key={author.id}
                 href={`/profile/${author.id}`}

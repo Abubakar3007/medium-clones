@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search, Bell, Edit, Menu } from "lucide-react";
+import { Search, Bell, Edit, Menu, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { UserDropdown } from "@/components/UserDropdown";
 import { useState } from "react";
@@ -17,20 +17,32 @@ export function Header({ onPublish }: HeaderProps) {
   const [sidebarToggle, setSidebarToggle] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-divider bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      <div className="mx-auto flex h-14 items-center justify-between pl-4 pr-6">
+    <header className={`sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 ${isWritePage ? 'border-none' : 'border-divider '}`}>
+      <div className={`mx-auto flex items-center justify-between pl-4 pr-6 ${isWritePage ? 'px-5 max-w-[1032px] h-16' : 'h-14'}`}>
         <div className="flex items-center gap-2">
           {/* menu button */}
-          <button className="w-10 h-10 grid place-items-center" onClick={() => setSidebarToggle(true)}>
-            <Menu className="stroke-1" />
-          </button>
+          {
+            !isWritePage && (
+              <button className="w-10 h-10 grid place-items-center" onClick={() => setSidebarToggle(true)}>
+                <Menu className="stroke-1" />
+              </button>
+            )
+          }
 
           {/* logo */}
           <Link href="/" className="flex items-center gap-1">
-            <span className="text-[28px] font-bold tracking-tighter text-foreground">
+            <span className={`${isWritePage ? 'text-4xl' : 'text-[28px]'} font-bold tracking-tighter text-foreground`}>
               Prismio
             </span>
           </Link>
+
+          {
+            isWritePage && (
+          <div className="flex items-center gap-4">
+            <Link href="/drafts">Drafts</Link>
+            <span className="text-neutral-500">Saved</span>
+          </div>
+          )}
 
           {!isWritePage && (
             <div className="relative ml-6 hidden sm:block bg-neutral-100/70 rounded-full w-60">
@@ -53,13 +65,16 @@ export function Header({ onPublish }: HeaderProps) {
           )}
 
           {isWritePage && (
-            <Button
-              size="sm"
-              className="rounded-full bg-primary px-4 text-sm text-primary-foreground hover:bg-primary/90"
-              onClick={onPublish}
-            >
-              Publish
-            </Button>
+            <>
+              <Button
+                size="sm"
+                className="rounded-full bg-green-700 px-3 h-7 text-sm text-white hover:bg-green-800"
+                onClick={onPublish}
+              >
+                Publish
+              </Button>
+              <button><MoreHorizontal /></button>
+            </>
           )}
 
           {/* notification */}
