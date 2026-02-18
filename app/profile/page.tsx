@@ -67,9 +67,6 @@ const ProfilePage = () => {
 
   return <Layout>
     <div className="flex">
-      {/* Left Sidebar */}
-      <LeftSidebar />
-
       {/* Main Content */}
       <div className="flex-1">
         <div className="max-w-[680px] pt-10 mx-auto">
@@ -207,117 +204,6 @@ const ProfilePage = () => {
           </div>}
         </div>
       </div>
-
-      {/* Right Sidebar */}
-      <aside className="hidden lg:block w-[368px] flex-shrink-0 pl-10 pr-6 border-l border-divider pb-10 overflow-auto">
-        <div className="sticky top-2 pt-10 space-y-6 flex flex-col justify-between h-full">
-          <div>
-
-            {/* User info */}
-            <div className="flex flex-col items-start mb-12">
-              {/* User image */}
-              <Avatar className="h-22 w-22 mb-4">
-                <AvatarImage src={author.avatar} />
-                <AvatarFallback className="text-2xl">{author.name[0]}</AvatarFallback>
-              </Avatar>
-              {/* user name */}
-              <h3 className="font-bold text-base">{author.name}</h3>
-              {/* user bio */}
-              <p className="text-sm my-3 text-neutral-500 leading-6">{author.bio}</p>
-              {/* followers */}
-              <div className="mt-2 text-base text-neutral-500 leading-6">
-                <span>{formatNumber(author.followers)} Followers</span>
-              </div>
-              {/* Edit profile button */}
-              <button onClick={() => setEditOpen(true)} className="text-green-700 mt-8">Edit profile</button>
-            </div>
-
-            {/* Following section */}
-            <div>
-              <h3 className="mb-4 text-base text-black">Following</h3>
-              <div className="space-y-2 mb-6">
-                {followingUsers.map((author) => (
-                  <Link
-                    key={author.id}
-                    href={`/profile/${author.id}`}
-                    className="flex items-center gap-3 leading-6 text-muted-foreground hover:text-black transition-colors"
-                  >
-                    <Avatar className="h-5 w-5">
-                      <AvatarImage src={author.avatar} />
-                      <AvatarFallback>{author.name[0]}</AvatarFallback>
-                    </Avatar>
-                    <span className="truncate text-neutral-500">{author.name}</span>
-
-                    {/* more button */}
-                    <button className="ml-auto"><MoreHorizontal className="w-5 h-5 text-neutral-500" /></button>
-                  </Link>
-                ))}
-              </div>
-
-              <Link href="/search" className="text-neutral-500">See all</Link>
-            </div>
-
-            {/* Lists section */}
-            <div className="mt-10">
-              <h4 className="font-bold text-base mb-3">Lists</h4>
-              <div className="space-y-4 mb-6">
-                {readingLists.slice(0, 2).map(list => <Link key={list.id} href="/me/lists" className="block group">
-                  <div className="flex items-start gap-5">
-                    <div className="flex gap-0.5 w-[93px]">
-                      {list.thumbnails.map((thumb, i) => {
-                        const imageWidth = Math.ceil(48 / (i + 1))
-                        return (<img key={i} src={thumb} alt="" style={{ width: `${imageWidth}%` }} className="h-12 object-cover" />)
-                      })}
-                    </div>
-                    <div>
-                      <p className="text-base font-bold line-clamp-2 text-ellipsis group-hover:underline">{list.name}</p>
-                      <p className="text-xs text-neutral-500">{list.count} stories</p>
-                    </div>
-                  </div>
-                </Link>)}
-              </div>
-              <Link href="/me/lists" className="text-neutral-500 hover:text-black">
-                View All
-              </Link>
-            </div>
-          </div>
-          {/* Footer */}
-          <div className="pt-6 border-t border-divider">
-            <div className="flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-neutral-500">
-              <a href="#" className="hover:text-foreground">
-                Help
-              </a>
-              <a href="#" className="hover:text-foreground">
-                Status
-              </a>
-              <a href="#" className="hover:text-foreground">
-                About
-              </a>
-              <a href="#" className="hover:text-foreground">
-                Careers
-              </a>
-              <a href="#" className="hover:text-foreground">
-                Press
-              </a>
-              <a href="#" className="hover:text-foreground">
-                Blog
-              </a>
-              <a href="#" className="hover:text-foreground">
-                Privacy
-              </a>
-              <a href="#" className="hover:text-foreground">
-                Rules
-              </a>
-              <a href="#" className="hover:text-foreground">
-                Terms
-              </a>
-              <a href="#" className="hover:text-foreground">
-                Text to Speech
-              </a>
-            </div>
-          </div>
-        </div>
-      </aside>
     </div>
 
     <EditProfileDialog open={editOpen} onOpenChange={setEditOpen} profile={{

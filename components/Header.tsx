@@ -7,14 +7,18 @@ import { UserDropdown } from "@/components/UserDropdown";
 import { useState } from "react";
 
 interface HeaderProps {
+  sidebarOpen: boolean;
+  setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
   onPublish?: () => void;
 }
 
-export function Header({ onPublish }: HeaderProps) {
+export function Header({
+  sidebarOpen,
+  setSidebarOpen,
+  onPublish,
+}: HeaderProps) {
   const pathname = usePathname();
   const isWritePage = pathname === "/write";
-
-  const [sidebarToggle, setSidebarToggle] = useState(false);
 
   return (
     <header className={`sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 ${isWritePage ? 'border-none' : 'border-divider '}`}>
@@ -23,7 +27,10 @@ export function Header({ onPublish }: HeaderProps) {
           {/* menu button */}
           {
             !isWritePage && (
-              <button className="w-10 h-10 grid place-items-center" onClick={() => setSidebarToggle(true)}>
+              <button
+                className="w-10 h-10 grid place-items-center"
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+              >
                 <Menu className="stroke-1" />
               </button>
             )
@@ -38,11 +45,11 @@ export function Header({ onPublish }: HeaderProps) {
 
           {
             isWritePage && (
-          <div className="flex items-center gap-4">
-            <Link href="/drafts">Drafts</Link>
-            <span className="text-neutral-500">Saved</span>
-          </div>
-          )}
+              <div className="flex items-center gap-4">
+                <Link href="/drafts">Drafts</Link>
+                <span className="text-neutral-500">Saved</span>
+              </div>
+            )}
 
           {!isWritePage && (
             <div className="relative ml-6 hidden sm:block bg-neutral-100/70 rounded-full w-60">

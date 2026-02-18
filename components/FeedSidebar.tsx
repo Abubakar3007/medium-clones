@@ -5,13 +5,17 @@ import { TrendingUp } from "lucide-react";
 import { ReadingListSidebar } from "@/components/ReadingListSidebar";
 import Link from "next/link";
 
-export function FeedSidebar() {
+interface FeedSidebarProps {
+  sidebarOpen: boolean;
+}
+
+export function FeedSidebar({ sidebarOpen }: FeedSidebarProps) {
   const staffPicks = stories.slice(0, 3);
   const recommendedTopics = topics.slice(0, 7);
   const suggestedAuthors = authors.slice(0, 3);
 
   return (
-    <aside className="hidden lg:block w-[368px] flex-shrink-0 pl-10 pr-6 border-l border-divider pt-10">
+    <aside className={`hidden lg:block transition-all ease-in-out duration-300 ${sidebarOpen ? 'w-[368px]':'w-[468px]'} shrink-0 pl-10 pr-6 border-l border-divider pt-10`}>
       <div className="sticky top-0 space-y-10 pb-10">
         {/* Staff Picks */}
         <section>

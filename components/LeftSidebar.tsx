@@ -14,9 +14,13 @@ const navItems = [
   { label: "Stats", icon: BarChart3, path: "stats" },
 ];
 
+interface LeftSidebarProps {
+  sidebarOpen: boolean;
+}
+
 const followingUsers = authors;
 
-export function LeftSidebar() {
+export function LeftSidebar({ sidebarOpen }: LeftSidebarProps) {
   const pathname = usePathname();
 
   const [visibleCount, setVisibleCount] = useState(10);
@@ -35,7 +39,10 @@ export function LeftSidebar() {
   };
 
   return (
-    <aside className="hidden xl:block w-[240px] shrink-0 pt-10 border-r border-divider sticky top-10 overflow-y-auto h-screen pb-12">
+    <aside
+      className={`hidden xl:block border-r border-divider top-14 h-screen overflow-y-auto pb-12 pt-10 fixed transition-all duration-300 ease-in-out w-[240px] ${sidebarOpen ? "left-0" : "-left-[240px]"
+        }`}
+    >
       <div className="pb-10">
         <nav className="space-y-5">
           {navItems.map((item) => {
