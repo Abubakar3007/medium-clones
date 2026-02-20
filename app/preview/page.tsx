@@ -3,7 +3,6 @@ import { useState } from "react";
 import { X, Facebook, Linkedin, Link as LinkIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { topics } from "@/app/lib/mock-data";
-import { useParams } from "next/navigation";
 
 interface PublishModalProps {
   open: boolean;
@@ -13,14 +12,12 @@ interface PublishModalProps {
   coverImage?: string;
 }
 
-export function PublishModal({ open, onClose, title, content, coverImage }: PublishModalProps) {
+export default function Preview({ open, onClose, title, content, coverImage }: PublishModalProps) {
   const router = useRouter();
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [topicInput, setTopicInput] = useState("");
   const [published, setPublished] = useState(false);
   const [copied, setCopied] = useState(false);
-  const params = useParams();
-  const id = params.id;
 
   const toggleTopic = (topic: string) => {
     if (selectedTopics.includes(topic)) {
@@ -34,11 +31,11 @@ export function PublishModal({ open, onClose, title, content, coverImage }: Publ
     setPublished(true);
   };
 
-  const handleCopyLink = () => {
-    navigator.clipboard.writeText(window.location.origin + "/story/" + id);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+  // const handleCopyLink = () => {
+  //   navigator.clipboard.writeText(window.location.origin + "/story/");
+  //   setCopied(true);
+  //   setTimeout(() => setCopied(false), 2000);
+  // };
 
   if (!open) return null;
 
@@ -153,7 +150,7 @@ export function PublishModal({ open, onClose, title, content, coverImage }: Publ
               Share on X
             </button>
             <button
-              onClick={handleCopyLink}
+              // onClick={handleCopyLink}
               className="w-full flex items-center justify-center gap-3 rounded-full border border-input py-3 text-sm font-medium hover:bg-secondary transition-colors"
             >
               <LinkIcon className="h-5 w-5" />
