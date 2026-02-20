@@ -18,7 +18,6 @@ const page = () => {
     return (
         <Layout>
             <div className="flex">
-                <LeftSidebar />
                 <div className="flex-1 max-w-[680px] pt-12 mx-auto">
                     <h1 className="text-[42px] font-bold mb-4">Refine recommendations</h1>
                     <p className="text-neutral-500 mb-16">Adjust recommendations by updating what you’re following, your reading history, and who you’ve muted.</p>
@@ -162,7 +161,6 @@ const page = () => {
                     )}
 
                 </div>
-                <FeedSidebar />
             </div>
         </Layout>
     )

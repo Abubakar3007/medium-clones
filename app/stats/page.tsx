@@ -26,7 +26,6 @@ const StatsPage = () => {
   return (
     <Layout>
       <div className="flex">
-        <LeftSidebar />
 
         <div className="flex-1">
           <div className="px-16 py-12 mx-auto">

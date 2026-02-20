@@ -88,9 +88,6 @@ const StoriesPage = () => {
   return (
     <Layout>
       <div className="flex">
-
-        <LeftSidebar />
-
         <div className="flex-1">
           <div className="flex-1 px-16 py-12 mx-auto">
             <div className="flex items-center justify-between mb-10">

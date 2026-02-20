@@ -1,24 +1,28 @@
+"use client";
+import AuthDialog from '@/components/AuthDialog';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useState } from 'react';
 
 const page = () => {
+    const [isStarted, setIsStarted] = useState(false);
     return (
-        <div className="bg-[#242424] text-white">
+        <div className="bg-[#242424]">
             {/* header */}
-            <header className="p-6 flex justify-between border-b border-white/90 items-center">
+            <header className="p-6 flex justify-between border-b border-white/90 items-center text-white">
                 <Link href="/" className='text-3xl font-bold'>
                     Prismio
                 </Link>
                 <div className="flex gap-4">
-                    <Button variant="outline" className='rounded-full border-white'>Sign in</Button>
-                    <Button variant="default" className='rounded-full bg-white text-black'>Sign up</Button>
+                    <Button variant="outline" className='rounded-full border-white bg-transparent' onClick={() => setIsStarted(true)}>Sign in</Button>
+                    <Button variant="default" className='rounded-full bg-white/90 text-black hover:bg-white' onClick={() => setIsStarted(true)}>Sign up</Button>
                 </div>
             </header>
 
             {/* section */}
-            <section className="pt-[120px] px-8 pb-[144px]">
+            <section className="pt-[120px] px-8 pb-[144px] bg-[url('/images/dot-bg.webp')] bg-right text-white">
                 <div className='max-w-[680px]'>
-                    <h1 className='text-[85px] mb-[72px] leading-[88px]'>Everyone has a story to tell</h1>
+                    <h1 className='text-[85px] mb-[72px] leading-[88px] text-white'>Everyone has a story to tell</h1>
                     <p className="text-[21px]">Medium is a home for human stories and ideas. Here, anyone can share knowledge and wisdom with the world—without having to build a mailing list or a following first. The internet is noisy and chaotic; Medium is quiet yet full of insight. It’s simple, beautiful, collaborative, and helps you find the right readers for whatever you have to say.</p>
                     <br />
                     <br />
@@ -40,19 +44,19 @@ const page = () => {
                 </div>
             </section>
 
-            <a className="pt-13 pb-16 px-8 border-t border-white block max-w-full transition-colors duration-300 ease-out delay-100 hover:bg-white hover:text-black" href="">
+            <a className="pt-13 pb-16 px-8 border-t text-white border-white block max-w-full transition-colors duration-300 ease-out delay-100 hover:bg-white hover:text-black" href="">
                 <div className="flex justify-between items-center">
                     <span className="text-[70px] leading-[74px] tracking-tight">Start reading</span>
                     <span className="text-[70px]">→</span>
                 </div>
             </a>
-            <a className="pt-13 pb-16 px-8 border-t border-white block max-w-full transition-colors duration-300 ease-out delay-100 hover:bg-white hover:text-black" href="">
+            <a className="pt-13 pb-16 px-8 border-t text-white border-white block max-w-full transition-colors duration-300 ease-out delay-100 hover:bg-white hover:text-black" href="">
                 <div className="flex justify-between items-center">
                     <span className="text-[70px]">Start writing</span>
                     <span className="text-[70px]">→</span>
                 </div>
             </a>
-            <a className="pt-13 pb-16 px-8 border-t border-white block max-w-full transition-colors duration-300 ease-out delay-100 hover:bg-white hover:text-black" href="">
+            <a className="pt-13 pb-16 px-8 border-t text-white border-white block max-w-full transition-colors duration-300 ease-out delay-100 hover:bg-white hover:text-black" href="">
                 <div className="flex justify-between items-center">
                     <span className="text-[70px]">Become a member</span>
                     <span className="text-[70px]">→</span>
@@ -62,7 +66,7 @@ const page = () => {
             {/* footer */}
             <footer className="bg-white text-black p-6 flex justify-between items-center">
                 <Link href="/" className='text-2xl font-bold'>
-                    Prisim
+                    Prismio
                 </Link>
                 <ul className="flex gap-2 text-[11px]">
                     <li>
@@ -88,6 +92,11 @@ const page = () => {
                     </li>
                 </ul>
             </footer>
+            {
+                isStarted && (
+                    <AuthDialog isStarted={isStarted} setIsStarted={setIsStarted} />
+                )
+            }
         </div>
     )
 }

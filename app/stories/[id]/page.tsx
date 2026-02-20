@@ -21,8 +21,6 @@ const StoryPage = () => {
   return (
     <Layout>
       <div className="flex items-start">
-        <LeftSidebar />
-
         {/* article */}
         <div className="flex-1">
           <article className="mx-auto max-w-[680px] py-10">

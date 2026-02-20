@@ -53,9 +53,6 @@ const ReadingListPage = () => {
   return (
     <Layout>
       <div className="flex">
-        {/* sidebar */}
-        <LeftSidebar />
-
         {/* main content */}
         <div className="flex-1 max-w-[680px] py-12 mx-auto">
           <div className="flex items-center justify-between mb-12">

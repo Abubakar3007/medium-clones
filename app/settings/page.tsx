@@ -27,7 +27,6 @@ const SettingsPage = () => {
   return (
     <Layout>
       <div className="flex">
-        <LeftSidebar />
         <div className="flex-1">
           <div className="max-w-[680px] pt-10 pb-14 mx-auto">
             <h1 className="text-[42px] font-bold mb-14 animate-fade-in">Settings</h1>

@@ -9,7 +9,6 @@ const ImportStoryPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
       <div className="max-w-[728px] mx-auto px-6 py-16 text-center">
         <h1 className="text-[46px] font-bold">See your story on Medium</h1>
         <p className="text-black text-lg mb-16">
