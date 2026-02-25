@@ -1,6 +1,8 @@
+"use client";
 import { Button } from '@/components/ui/button'
-import { Search } from 'lucide-react';
+import { ChevronUp, Menu, Search, X } from 'lucide-react';
 import Link from 'next/link';
+import { useState } from 'react';
 
 const page = () => {
 
@@ -130,39 +132,78 @@ const page = () => {
         }
     ];
 
+    const goToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    const [toggleHeader, setToggleHeader] = useState(false);
+    const [searchInput, setSearchInput] = useState('');
+    const handleToggleHeader = () => {
+        setToggleHeader(prev => !prev);
+    }
+
     return (
         <>
             <header className='bg-black w-full'>
-                <div className='flex justify-between py-6 max-w-[1200px] w-full mx-auto items-center'>
+                <div className='flex justify-between py-6 max-w-[1200px] w-full mx-auto items-center xl:px-0 lg:px-12 px-6'>
                     <div className='flex gap-4 items-center'>
                         <Link href="/" className='text-white text-3xl font-bold'>
-                            Prismio
+                            <img src="./logo/white-logo.png" alt="" className='w-14'/>
                         </Link>
-                        <span className='text-white/80'>Help Center</span>
+                        <span className='text-white/80 md:block hidden'>Help Center</span>
                     </div>
-                    <div className='flex gap-4 items-center'>
-                        <Link href="" className='text-white/80'>Back to medium.com</Link>
+
+                    {/* Menu button */}
+                    <button
+                        onClick={handleToggleHeader}
+                        className='relative z-20 lg:hidden'>
+                        {
+                            toggleHeader ? <X className='text-white w-8 h-8' /> : <Menu className='text-white w-8 h-8' />
+                        }
+                    </button>
+
+                    <div
+                        className={`lg:flex lg:flex-row flex-col gap-4 items-center lg:static fixed top-0 left-0 shadow-md bottom-0 
+                            ${toggleHeader ? 'translate-x-0' : 'lg:translate-x-0 -translate-x-[290px]'} 
+                            z-20 lg:w-auto w-[80%] max-w-[250px] lg:max-w-full 
+                            lg:p-0 p-8 text-[#292929] 
+                            lg:bg-transparent bg-white 
+                            transition-transform duration-500 ease-in-out`}
+                    >
+                        <Link href="" className='lg:text-white/80'>Back to medium.com</Link>
+                        <Link href="" className='lg:text-white/80 lg:hidden block lg:mt-0 mt-4'>Submit a request</Link>
                         <Button
                             size="sm"
-                            className='border border-white/80 rounded-full text-white/80'
+                            className='border border-white/80 rounded-full text-white/80 lg:block hidden'
                         >
                             Submit a request
                         </Button>
                     </div>
                 </div>
             </header>
+
             <main>
                 <div className="relative py-[8%] bg-[#B7DCED] px-6">
                     <div className="absolute inset-0 w-full h-full bg-[url('/images/help-bg.png')] bg-cover bg-center"></div>
-                    <div className="max-w-[720px] w-full mx-auto text-center">
-                        <h1 className="mb-8 text-5xl">How can we help?</h1>
+                    <div className="max-w-[720px] w-full mx-auto text-center relative z-10">
+                        <h1 className="mb-8 text-5xl font-serif">How can we help?</h1>
 
                         <form className="relative w-full">
-                            <input name="utf8" value="" autoComplete="off" placeholder='Search..' className='h-[60px] px-14 bg-white rounded-full w-full placeholder-gray-400 text-xl outline-none' />
-                            <div className="absolute left-5 top-1/2 -translate-y-1/2"><Search/></div>
+                            <input
+                                name="utf8"
+                                value={searchInput}
+                                autoComplete="off"
+                                placeholder='Search..'
+                                onChange={(e) => setSearchInput(e.target.value)}
+                                className='h-[60px] px-14 bg-white rounded-full w-full placeholder-gray-400 text-xl outline-none'
+                            />
+                            <div className="absolute left-5 top-1/2 -translate-y-1/2"><Search /></div>
                         </form>
 
-                        <div className='mt-8 text-center flex items-center justify-center text-base gap-2 flex-wrap'>
+                        <div className='mt-8 text-center flex items-center justify-center text-base gap-2 flex-wrap md:flex-row flex-col'>
                             <span>Popular:</span>
                             <div className="flex flex-col sm:flex-row items-center gap-2 flex-wrap">
                                 <a href="" className='underline'>Membership</a>
@@ -174,19 +215,19 @@ const page = () => {
                 </div>
 
                 {/* Category */}
-                <section className='py-16'>
+                <section className='py-12'>
                     <div className='max-w-[1200px] w-full mx-auto xl:px-0 px-4'>
-                        <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10">
+                        <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8">
                             {helpCards.map((data, index) => (
-                                <div className="border border-input/10 p-10" key={index}>
+                                <div className="border border-input/10 p-8" key={index}>
 
                                     <div className="flex mb-8 gap-6">
                                         <img className="w-12 h-12" src={data.image} alt={data.title} />
                                         <div>
-                                            <h3 className="text-xl mb-1">{data.title}</h3>
-                                            <span className="text-base text-muted-foreground">
+                                            <h3 className="text-xl mb-2">{data.title}</h3>
+                                            <p className="text-base text-muted-foreground font-medium">
                                                 {data.description}
-                                            </span>
+                                            </p>
                                         </div>
                                     </div>
 
@@ -221,13 +262,21 @@ const page = () => {
                 </section>
 
                 {/* Request */}
-                <section className='py-16 bg-gray-100/50 text-center'>
-                    <h2 className='text-4xl mb-10'>Can't find what you're looking for?</h2>
+                <section className='py-16 px-6 bg-gray-100/50 text-center'>
+                    <h2 className='text-4xl mb-10 font-serif'>Can't find what you're looking for?</h2>
                     <button className='bg-primary text-white rounded-full px-4 py-2'>Submit a request</button>
                 </section>
+
+                {/* go to top */}
+                <button
+                    onClick={goToTop}
+                    className="fixed right-8 bottom-8 border border-input w-12 h-12 place-items-center md:grid hidden">
+                    <ChevronUp className="w-8 h-8" />
+                </button>
             </main>
+
             <footer className='bg-black text-right py-8'>
-                <div className='max-w-[1200px] w-full mx-auto flex justify-end'>
+                <div className='max-w-[1200px] w-full mx-auto flex justify-end xl:px-0 lg:px-4 px-6'>
                     <ul className="flex py-2 gap-3 text-sm text-white">
                         <li>
                             <a href="/status">Status</a>
@@ -253,6 +302,8 @@ const page = () => {
                     </ul>
                 </div>
             </footer>
+
+            <div className={`${toggleHeader ? 'block' : 'hidden'} left-0 fixed top-0 bottom-0 z-10 w-full h-full bg-black/40 lg:hidden`}></div>
         </>
     )
 }

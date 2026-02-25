@@ -30,8 +30,8 @@ const AuthDialog = ({ isStarted, setIsStarted }: AuthDialogProps) => {
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-black/30 px-6 w-full fixed inset-0">
-            <div className="w-full max-w-[678px] shadow-lg relative bg-white rounded-sm p-6">
+        <div className="flex min-h-screen items-center justify-center bg-black/30 [media(min-width:900px)]:px-6 w-full fixed inset-0">
+            <div className="w-full max-w-[678px] shadow-lg relative bg-white rounded-sm p-6 [@media(min-width:900px)]:h-auto h-full [@media(min-width:900px)]:block flex justify-end items-center">
                 <div className="py-10">
 
                     {/* LOGIN / SIGNUP OPTIONS */}

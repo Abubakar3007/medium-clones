@@ -3,6 +3,8 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { useState } from 'react';
 import { Check } from 'lucide-react';
+import AuthDialog from '@/components/AuthDialog';
+import { useAuth } from '../context/authContext';
 const page = () => {
 
     const [isStarted, setIsStarted] = useState(false);
@@ -30,38 +32,45 @@ const page = () => {
         { text: "Help", link: "/help" },
         { text: "Terms", link: "/terms" },
         { text: "Press", link: "/press" }
-    ]
+    ];
+
+    const { user } = useAuth();
 
     return (
         <div>
             <header className="p-6 flex justify-between border-b border-black/90 items-center ">
-                <Link href="/" className='text-3xl font-bold'>
-                    Prismio
+                <Link href="/" className='text-white text-3xl font-bold'>
+                    <img src="./logo/black-logo.png" alt="" className='w-14' />
                 </Link>
-                <div className="flex gap-4">
-                    <Button variant="outline" className='bg-transparent' onClick={() => setIsStarted(true)}>Sign in</Button>
-                    <Button variant="default" onClick={() => setIsStarted(true)}>Sign up</Button>
-                </div>
+
+                {
+                    !user && (
+                        <div className="flex sm:gap-4 gap-2">
+                            <Button variant="outline" className='bg-transparent sm:h-10 sm:text-sm text-xs h-8' onClick={() => setIsStarted(true)}>Sign in</Button>
+                            <Button variant="default" className='sm:h-10 sm:text-sm text-xs h-8' onClick={() => setIsStarted(true)}>Sign up</Button>
+                        </div>
+                    )
+                }
+
             </header>
 
             <main>
-                <div className="flex justify-between border-b border-input">
-
-                    <div className='flex-1 bg-[#B2D68D66]'>
-                        <div className="border-r border-input pt-16 pr-20 pb-12 pl-8 gap-12 flex flex-col justify-between h-full">
-                            <h1 className="text-[85px] leading-[88px] tracking-tighter">Support human stories</h1>
+                <div className="flex justify-between border-b border-input md:flex-row flex-col">
+                    <div className='flex-1 bg-[#B2D68D66] md:border-none border-b border-input'>
+                        <div className="md:border-r md:border-input sm:pt-16 pt-12 sm:pr-20 pr-8 pb-12 pl-8 gap-12 flex flex-col justify-between h-full">
+                            <h1 className="xl:text-[85px] xl:leading-[88px] md:text-[70px] md:leading-[74px] text-[48px] leading-[52px] tracking-tighter font-light font-serif">Support human stories</h1>
 
                             <div className="max-w-[540px] w-full">
-                                <p className="text-[22px] leading-7 text-muted-foreground mb-12">Become a member to read without limits or ads, fund great writers, and join a global community of people who care about high-quality storytelling.</p>
-                                <div className="flex gap-4">
-                                    <Button variant="default">Get started</Button>
-                                    <Button variant="outline">View plans</Button>
+                                <p className="xl:text-[22px] text-lg xl:leading-7 leading-6 text-muted-foreground mb-12">Become a member to read without limits or ads, fund great writers, and join a global community of people who care about high-quality storytelling.</p>
+                                <div className="flex xl:gap-4 gap-3">
+                                    <Button variant="default" className="px-5 text-base">Get started</Button>
+                                    <Button variant="outline" className="px-5 text-base bg-transparent hover:bg-transparent">View plans</Button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="h-[640px] w-[520px] relative bg-[#B2D68D]">
+                    <div className="sm:h-[640px] h-[560px] xl:w-[520px] md:w-[375px] w-full relative bg-[#B2D68D]">
                         <div className="h-full w-full flex flex-col">
                             <div className="flex w-full grow items-end" style={{
                                 backgroundImage: `
@@ -85,10 +94,10 @@ const page = () => {
                             </div>
                             <div className="py-6 px-8">
                                 <div className='h-[128px]'>
-                                    <h2 className="text-[32px] leading-9 tracking-tight line-clamp-3 text-ellipsis">AI and the Future of Work: What Stays 100% Human?</h2>
+                                    <h2 className="text-[32px] leading-9 tracking-tight line-clamp-3 text-ellipsis font-serif">AI and the Future of Work: What Stays 100% Human?</h2>
                                 </div>
                                 <div className="flex gap-4">
-                                    <img alt="Cassie Kozyrkov" width="48" height="48" loading="lazy" src="https://miro.medium.com/v2/resize:fill:54:54/1*pIJYAvf37_hLJXUpZs7z6w.png" />
+                                    <img alt="Cassie Kozyrkov" className='w-12 h-12 rounded-full' loading="lazy" src="https://miro.medium.com/v2/resize:fill:54:54/1*pIJYAvf37_hLJXUpZs7z6w.png" />
                                     <div>
                                         <p className="text-base leading-6">Cassie Kozyrkov</p>
                                         <p className="text-base leading-6">Chief Decision Scientist at Google</p>
@@ -96,106 +105,73 @@ const page = () => {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <div className="py-20 px-8 flex border-b border-input gap-12 lg:flex-row flex-col">
+                    <div className="md:max-w-[485px] w-full text-left">
+                        <div className="sticky top-[152px]">
+                            <h2 className="md:text-[70px] md:leading-[74px] text-[48px] leading-[52px] tracking-tight font-serif">Why membership?</h2>
+                        </div>
+                    </div>
+
+                    <div className="md:max-w-[680px] w-full text-left flex flex-col md:gap-[120px] gap-20">
                         <div>
-                            <div className="o y qc oi qd oj ok ol om on oo op qe">
-                                <div className="li qf qg qh o qi n">
-                                    <button className="qj qk ql cx qm o qn qo qp qq qr">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 64 64" className="qs">
-                                            <path fill="#FFC017" d="m39.637 40.831-5.771 15.871a1.99 1.99 0 0 1-3.732 0l-5.771-15.87a2.02 2.02 0 0 0-1.194-1.195L7.298 33.866a1.99 1.99 0 0 1 0-3.732l15.87-5.771a2.02 2.02 0 0 0 1.195-1.194l5.771-15.871a1.99 1.99 0 0 1 3.732 0l5.771 15.87a2.02 2.02 0 0 0 1.194 1.195l15.871 5.771a1.99 1.99 0 0 1 0 3.732l-15.87 5.771a2.02 2.02 0 0 0-1.195 1.194"></path>
-                                        </svg>
-                                        <p>Member-only story</p>
-                                    </button>
-                                </div>
-                                <div className="qt o y il">
-                                    <div className="o y ht">
-                                        <div className="qu bu">
-                                            <h2 className="eb b qv qw ay qx qy qz ra rb rc rd ef eg">Storytelling with Design: How to persuade your team with narrative</h2>
-                                        </div>
-                                        <div className="o hk">
-                                            <div className="bu ba">
-                                                <img alt="Kai Wong" className="bu dk t rf rg iv" width="48" height="48" loading="lazy" src="https://miro.medium.com/v2/resize:fill:54:54/1*UIl_8xj70gocPLKnaCUyEw.png" />
-                                                <div className="re t bu rf rg z bf qm rh"></div>
-                                            </div>
-                                            <div className="o y">
-                                                <p className="cr b ek el cu">Kai Wong</p>
-                                                <div className="rf bu">
-                                                    <p className="cr b ek el cu">
-                                                        <span>Author of <cite>Data-Informed UX Design</cite>
-                                                        </span>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <h2 className="md:text-[48px] text-[28px] md:leading-[52px] leading-8 tracking-tight mb-4 font-serif">Reward writers</h2>
+                            <p className="md:text-xl md:leading-7 text-base leading-6">Your membership directly supports the writers, editors, curators, and teams who make Medium a vibrant, inclusive home for human stories. A portion of your membership is allocated to the writers of the stories you read and interact with.</p>
+                        </div>
+                        <div>
+                            <h2 className="md:text-[48px] text-[28px] md:leading-[52px] leading-8 tracking-tight mb-4 font-serif">Unlock every story</h2>
+                            <p className="md:text-xl md:leading-7 text-base leading-6">Get access to millions of original stories that spark bright ideas, answer big questions, and fuel bold ambitions.</p>
+                        </div>
+                        <div>
+                            <h2 className="md:text-[48px] text-[28px] md:leading-[52px] leading-8 tracking-tight mb-4 font-serif">Enhance your reading experience</h2>
+                            <p className="md:text-xl md:leading-7 text-base leading-6">Immerse yourself in audio stories, read offline wherever you go, and connect with the Medium community on Mastodon.</p>
+                        </div>
+                        <div>
+                            <h2 className="md:text-[48px] text-[28px] md:leading-[52px] leading-8 tracking-tight mb-4 font-serif">Elevate your writing</h2>
+                            <p className="md:text-xl md:leading-7 text-base leading-6">Create and contribute to publications to collaborate with other writers, create a custom domain for your profile, and level up your writing with our simple but powerful publishing tools.</p>
+                        </div>
+                        <div>
+                            <h2 className="md:text-[48px] text-[28px] md:leading-[52px] leading-8 tracking-tight mb-4 font-serif">Support a mission that matters</h2>
+                            <p className="md:text-xl md:leading-7 text-base leading-6">Members are creating a world where original, human-crafted stories thrive. As a member-supported platform, quality comes first, not ads or clickbait.</p>
                         </div>
                     </div>
                 </div>
 
-                <div className="py-20 px-8 flex border-b border-input gap-12">
+                <div className="py-20 px-8 flex border-b border-input gap-12 lg:flex-row flex-col">
                     <div className="max-w-[485px] w-full text-left">
                         <div className="sticky top-[152px]">
-                            <h2 className="text-[70px] leading-[74px] tracking-tight">Why membership?</h2>
+                            <h2 className="md:text-[70px] md:leading-[74px] text-[48px] leading-[52px] tracking-tight font-serif">What members are saying</h2>
                         </div>
                     </div>
-                    <div className="max-w-[680px] w-full text-left flex flex-col gap-[120px]">
-                        <div>
-                            <h2 className="text-[48px] leading-[52px] tracking-tight mb-4">Reward writers</h2>
-                            <p className="text-xl leading-7">Your membership directly supports the writers, editors, curators, and teams who make Medium a vibrant, inclusive home for human stories. A portion of your membership is allocated to the writers of the stories you read and interact with.</p>
-                        </div>
-                        <div>
-                            <h2 className="text-[48px] leading-[52px] tracking-tight mb-4">Unlock every story</h2>
-                            <p className="text-xl leading-7">Get access to millions of original stories that spark bright ideas, answer big questions, and fuel bold ambitions.</p>
-                        </div>
-                        <div>
-                            <h2 className="text-[48px] leading-[52px] tracking-tight mb-4">Enhance your reading experience</h2>
-                            <p className="text-xl leading-7">Immerse yourself in audio stories, read offline wherever you go, and connect with the Medium community on Mastodon.</p>
-                        </div>
-                        <div>
-                            <h2 className="text-[48px] leading-[52px] tracking-tight mb-4">Elevate your writing</h2>
-                            <p className="text-xl leading-7">Create and contribute to publications to collaborate with other writers, create a custom domain for your profile, and level up your writing with our simple but powerful publishing tools.</p>
-                        </div>
-                        <div>
-                            <h2 className="text-[48px] leading-[52px] tracking-tight mb-4">Support a mission that matters</h2>
-                            <p className="text-xl leading-7">Members are creating a world where original, human-crafted stories thrive. As a member-supported platform, quality comes first, not ads or clickbait.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="py-20 px-8 flex border-b border-input gap-12">
-                    <div className="max-w-[485px] w-full text-left">
-                        <div className="sticky top-[152px]">
-                            <h2 className="text-[70px] leading-[74px] tracking-tight">What members are saying</h2>
-                        </div>
-                    </div>
-                    <div className="max-w-[680px] w-full text-left flex flex-col gap-[120px]">
-                        <div className="flex gap-8">
-                            <a href="" className='shrink-0 border border-gray-50'>
+                    <div className="max-w-[680px] w-full text-left flex flex-col md:gap-[120px] gap-20">
+                        <div className="flex md:gap-8 gap-4 md:flex-row flex-col">
+                            <a href="" className='shrink-0'>
                                 <img alt="Cassie Kozyrkov" className="w-20 h-20 rounded-full object-cover shrink-0" loading="lazy" src="https://miro.medium.com/v2/resize:fill:91:91/1*djKJlXxmezn6fBPzHnipnw.jpeg" />
                             </a>
                             <div>
-                                <p className="text-[21px] leading-8 tracking-tight mb-4">The easy path in social media is promoting the worst content, the cheapest, tackiest, lowest-effort stuff. That’s not what you get on Medium. You can actually find content you can build your brain with. I appreciate that, both as a reader and a writer.</p>
+                                <p className="md:text-[21px] md:leading-8 text-lg leading-7 font-light tracking-tight mb-4">The easy path in social media is promoting the worst content, the cheapest, tackiest, lowest-effort stuff. That’s not what you get on Medium. You can actually find content you can build your brain with. I appreciate that, both as a reader and a writer.</p>
                                 <p className="text-base leading-6"><a href=""><span>Cassie Kozyrkov,</span></a> Chief Decision Scientist at Google and Medium member</p>
                             </div>
                         </div>
-                        <div className="flex gap-8">
-                            <a href="" className='shrink-0 border border-gray-50'>
+                        <div className="flex md:gap-8 gap-4 md:flex-row flex-col">
+                            <a href="" className='shrink-0'>
                                 <img alt="Enrique Dans" className="w-20 h-20 rounded-full object-cover shrink-0" loading="lazy" src="https://miro.medium.com/v2/resize:fill:91:91/1*ZYP58jl-6KcKocr1P7r5Hw.jpeg" />
                             </a>
                             <div>
-                                <p className="text-[21px] leading-8 tracking-tight mb-4">Medium has proved a game-changer for me, and quickly became the subscription I value the most, and I have quite a few. The cost is nothing compared to the value Medium generates for me month after month.</p>
+                                <p className="md:text-[21px] md:leading-8 text-lg leading-7 font-light tracking-tight mb-4">Medium has proved a game-changer for me, and quickly became the subscription I value the most, and I have quite a few. The cost is nothing compared to the value Medium generates for me month after month.</p>
                                 <p className="text-base leading-6">
                                     <a href=""><span>Enrique Dans,</span></a> Professor of Innovation at IE Business School and Medium member
                                 </p>
                             </div>
                         </div>
-                        <div className="flex gap-8">
-                            <a href="" className='shrink-0 border border-gray-50'>
+                        <div className="flex md:gap-8 gap-4 md:flex-row flex-col">
+                            <a href="" className='shrink-0'>
                                 <img alt="Wenqi Glantz" className="w-20 h-20 rounded-full object-cover shrink-0" loading="lazy" src="https://miro.medium.com/v2/resize:fill:91:91/1*Ce4jOl6gjeebSiHsknN2-A.jpeg" />
                             </a>
                             <div>
-                                <p className="text-[21px] leading-8 tracking-tight mb-4">For us tech folks, Medium membership unlocks a whole treasure trove of high-quality articles. One good technology book could sell for over the Medium membership fee amount. It’s your choice whether to buy one book, or buy hundreds and thousands of books by unlocking member-only reading on Medium. Investing in a Medium membership is one of the best investments I have ever made for my career.</p>
+                                <p className="md:text-[21px] md:leading-8 text-lg leading-7 font-light tracking-tight mb-4">For us tech folks, Medium membership unlocks a whole treasure trove of high-quality articles. One good technology book could sell for over the Medium membership fee amount. It’s your choice whether to buy one book, or buy hundreds and thousands of books by unlocking member-only reading on Medium. Investing in a Medium membership is one of the best investments I have ever made for my career.</p>
                                 <p className="text-base leading-6">
                                     <a href="">
                                         <span>Wenqi Glantz,</span>
@@ -207,13 +183,13 @@ const page = () => {
                     </div>
                 </div>
 
-                <div className="py-20 px-8 flex border-b border-input gap-12" id="membership-plans">
+                <div className="py-20 px-8 flex border-b border-input gap-12 md:flex-row flex-col" id="membership-plans">
                     <div className="max-w-[485px] w-full text-left">
                         <div className="sticky top-[152px]">
-                            <h2 className="text-[70px] leading-[74px] tracking-tight">Membership plans</h2>
+                            <h2 className="md:text-[70px] md:leading-[74px] text-[48px] leading-[52px] tracking-tight font-serif">Membership plans</h2>
                         </div>
                     </div>
-                    <div className="max-w-[680px] w-full text-left flex gap-8">
+                    <div className="max-w-[680px] w-full text-left flex gap-8 md:flex-row flex-col">
                         <div className="flex-1 border border-input/10 p-8 text-center cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 64 64" className='mx-auto'>
                                 <path fill="#FFC017" d="m39.637 40.831-5.771 15.871a1.99 1.99 0 0 1-3.732 0l-5.771-15.87a2.02 2.02 0 0 0-1.194-1.195L7.298 33.866a1.99 1.99 0 0 1 0-3.732l15.87-5.771a2.02 2.02 0 0 0 1.195-1.194l5.771-15.871a1.99 1.99 0 0 1 3.732 0l5.771 15.87a2.02 2.02 0 0 0 1.194 1.195l15.871 5.771a1.99 1.99 0 0 1 0 3.732l-15.87 5.771a2.02 2.02 0 0 0-1.195 1.194"></path>
@@ -223,7 +199,7 @@ const page = () => {
                                 <p className="text-sm leading-6">$5/month or $50/year</p>
                             </div>
                             <Link href="">
-                                <Button variant="secondary" className='h-8'>
+                                <Button variant="secondary" className='h-9 w-full'>
                                     Get started
                                 </Button>
                             </Link>
@@ -250,7 +226,7 @@ const page = () => {
                             </div>
 
                             <Link href="">
-                                <Button variant="secondary" className='h-8'>
+                                <Button variant="secondary" className='h-9 w-full'>
                                     Get started
                                 </Button>
                             </Link>
@@ -270,14 +246,14 @@ const page = () => {
                 </div>
 
                 <div className="bg-[#B2D68D66] py-20 px-8 text-center">
-                    <h2 className="text-[70px] leading-[78px] mb-12">Unlock a world of wisdom</h2>
+                    <h2 className="md:text-[70px] md:leading-[74px] text-[48px] leading-[52px] tracking-tight font-serif mb-12">Unlock a world of wisdom</h2>
                     <Link href="">
-                        <Button>Get started</Button>
+                        <Button className='px-5 text-base'>Get started</Button>
                     </Link>
                 </div>
             </main>
 
-            <header className="p-6 flex justify-between border-t border-black/90 items-center ">
+            <footer className="p-6 flex justify-between border-t border-black/90 items-center md:flex-row flex-col">
                 <Link href="/" className='text-3xl font-bold'>
                     Prismio
                 </Link>
@@ -288,7 +264,12 @@ const page = () => {
                         ))
                     }
                 </ul>
-            </header>
+            </footer>
+            {
+                isStarted && (
+                    <AuthDialog isStarted={isStarted} setIsStarted={setIsStarted} />
+                )
+            }
         </div>
     )
 }

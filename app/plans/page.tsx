@@ -15,25 +15,55 @@ const Plan = () => {
     return (
         <Layout>
             <div className="max-w-[680px] mx-auto px-6 py-10 text-center">
-                <h1 className="text-[28px] tracking-tight mb-3 mx-20 pb-10 font-medium">Support great writing and access every story on Medium</h1>
+                <h1 className="sm:text-[28px] text-2xl tracking-tight mb-3 sm:mx-20 pb-10 font-medium">Support great writing and access every story on Medium</h1>
 
                 {/* select plan button */}
-                <div className='w-[280px] mx-auto content-center bg-white rounded-sm flex  shadow-[inset_0_0_0_1px_#E5E5E5]'>
-                    <label htmlFor="MONTHLY" className="cursor-pointer px-6 pb-[10px] text-base pt-[6px] flex flex-1 items-center justify-center border border-transparent h-[58px] whitespace-nowrap checked:border-green-700 checked:bg-green-700/80 checked:text-white">
-                        <input className="hidden" type="radio" id="MONTHLY" name="membershipFrequency" checked={true} value="MONTHLY" />
-                        <p>Pay monthly</p>
+                <div className="w-[280px] mx-auto bg-white rounded-sm flex shadow-[inset_0_0_0_1px_#E5E5E5]">
+
+                    {/* MONTHLY */}
+                    <label className="cursor-pointer flex-1">
+                        <input
+                            type="radio"
+                            name="membershipFrequency"
+                            value="MONTHLY"
+                            className="peer hidden"
+                            defaultChecked
+                        />
+
+                        <div className="px-6 h-[58px] flex items-center justify-center
+      border border-transparent
+      peer-checked:border-primary
+      peer-checked:bg-primary/10
+      perr-checked:text-primary
+      rounded-sm">
+                            Pay monthly
+                        </div>
                     </label>
 
-                    <label htmlFor="ANNUAL" className="cursor-pointer px-6 pb-[10px] text-base pt-[6px] border flex flex-1 flex-col items-center justify-center bg-white border-transparent h-[58px] shadow-[inset_0_0_0_1px_#E5E5E5]">
-                        <input className="hidden" type="radio" id="ANNUAL" name="membershipFrequency" value="ANNUAL" />
-                        <p>Pay annually</p>
-                        <p className="text-[11px] font-light">Save up to $30</p>
+                    {/* ANNUAL */}
+                    <label className="cursor-pointer flex-1">
+                        <input
+                            type="radio"
+                            name="membershipFrequency"
+                            value="ANNUAL"
+                            className="peer hidden"
+                        />
+
+                        <div className="px-6 h-[58px] flex flex-col items-center justify-center
+      border border-transparent
+      peer-checked:border-primary
+      peer-checked:bg-primary/10
+      peer-checked:text-primary
+      rounded-sm">
+                            <p>Pay annually</p>
+                            <p className="text-[11px] font-light">Save up to $30</p>
+                        </div>
                     </label>
                 </div>
 
                 {/* list cards */}
-                <div className='flex gap-4 mt-10'>
-                    <div className="border border-border rounded-[4px] p-8 mb-12 flex-1">
+                <div className='flex sm:gap-4 gap-12 mt-10 sm:flex-row flex-col'>
+                    <div className="border border-border rounded-[4px] p-8 flex-1">
                         {/* user image */}
                         <div className='relative w-20 h-20 mx-auto'>
                             <img src="https://miro.medium.com/v2/resize:fill:160:160/0*dgp8_Og6t8kikeuE" alt="" className='w-full h-full rounded-full' />
@@ -72,7 +102,7 @@ const Plan = () => {
                             }
                         </ul>
                     </div>
-                    <div className="border border-border rounded-[4px] p-8 mb-12 flex-1">
+                    <div className="border border-border rounded-[4px] p-8 flex-1">
                         {/* user image */}
                         <div className='relative w-20 h-20 mx-auto'>
                             <img src="https://miro.medium.com/v2/resize:fill:160:160/0*dgp8_Og6t8kikeuE" alt="" className='w-full h-full rounded-full' />

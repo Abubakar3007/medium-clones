@@ -65,7 +65,7 @@ export default function Preview({ open, onClose, title, content, coverImage }: P
             <p className="text-sm text-muted-foreground line-clamp-3">{content.slice(0, 140)}...</p>
             <p className="text-xs text-muted-foreground mt-2">{content.length}/140</p>
             <p className="text-xs text-muted-foreground mt-4">
-              <strong>Note:</strong> Changes here will affect how your story appears in public places like Medium's
+              <strong>Note:</strong> Changes here will affect how your story appears in public places like Prismio's
               homepage and in subscribers' inboxes — not the contents of the story itself.
             </p>
           </div>

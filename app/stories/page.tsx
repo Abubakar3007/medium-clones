@@ -2,9 +2,8 @@
 import { Layout } from "@/components/Layout";
 import { useState } from "react";
 import { stories, formatDate } from "@/app/lib/mock-data";
-import { LeftSidebar } from "@/components/LeftSidebar";
 import { Button } from "@/components/ui/button";
-import { MoreHorizontal, MessageCircle, ThumbsUp } from "lucide-react";
+import { MoreHorizontal, MessageCircle, ThumbsUp, ChevronRight, ChevronLeft } from "lucide-react";
 import Link from 'next/link';
 
 const draftsDataSet = [
@@ -87,23 +86,38 @@ const StoriesPage = () => {
 
   return (
     <Layout>
-      <div className="flex">
-        <div className="flex-1">
-          <div className="flex-1 px-16 py-12 mx-auto">
-            <div className="flex items-center justify-between mb-10">
-              <h1 className="text-[42px] font-bold animate-fade-in">Stories</h1>
-              <Link href="/import">
-                <Button variant="outline" className="rounded-full text-sm px-5 border-black">Import a story</Button>
-              </Link>
-            </div>
+      <div className="flex-1 md:px-16 px-6 py-12 mx-auto">
+        <div className="flex items-center justify-between mb-10">
+          <h1 className="md:text-[42px] text-2xl font-bold animate-fade-in">Stories</h1>
+          <Link href="/import-story">
+            <Button variant="outline" className="rounded-full text-sm px-5 border-black">Import a story</Button>
+          </Link>
+        </div>
 
-            {/* Tabs */}
+        {/* Tabs */}
+        <div className="relative w-full">
+          <div className="overflow-x-auto">
+            <button
+                className="
+                  md:hidden
+                  absolute top-0 left-0
+                  h-fit
+                  w-12
+                  flex items-center
+                  justify-start
+                  pointer-events-none
+                  opacity-100
+                  bg-[linear-gradient(to_right,white_0%,rgba(255,255,255,0.9)_40%,rgba(255,255,255,0.6)_70%,transparent_100%)]
+                "
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
             <div className="flex gap-7 border-b border-divider mb-8">
               {tabs.map((tab) => (
                 <button
                   key={tab.label}
                   onClick={() => setActiveTab(tab.label)}
-                  className={`pb-4 text-sm cursor-pointer transition-colors relative ${activeTab === tab.label
+                  className={`pb-4 text-sm cursor-pointer shrink-0 whitespace-nowrap transition-colors relative ${activeTab === tab.label
                     ? "text-black font-medium"
                     : "text-neutral-500 hover:text-black"
                     }`}
@@ -115,175 +129,186 @@ const StoriesPage = () => {
                 </button>
               ))}
             </div>
-
-            {/* Content */}
-            {activeTab === "Drafts" && (
-              <div>
-                {
-                  draftsData ? (
-                    <div className="text-center py-20">
-                      <p className="font-bold text-sm">No stories in draft.</p>
-                      <p className="text-sm text-muted-foreground mt-1">
-                        Why not <Link href="/write" className="underline">start writing one</Link>?
-                      </p>
-                    </div>
-                  ) : (
-                    <div>
-                      <table className="w-full block">
-                        {/* table head */}
-                        <thead className="text-left text-sm font-medium w-full block">
-                          <tr className="w-full table">
-                            <th className="w-[60%] pr-4 font-light text-neutral-500">Latest</th>
-                            <th className="w-[18%] font-light text-neutral-500">Publication</th>
-                            <th className="w-[18%] font-light text-neutral-500">Status</th>
-                            <th className="w-[10%] font-light text-neutral-500"></th>
-                          </tr>
-                        </thead>
-
-                        {/* table body */}
-                        <tbody className="table w-full">
-                          {
-                            draftsDataSet.map((data, index) => (
-                              <tr key={index}>
-                                <td className={`${index === 0 ? "pt-4" : "pt-8"} pb-8 border-b border-divider`}>
-                                  <div className="flex gap-4 mr-12 max-w-[643px] w-full">
-
-                                    <Link href="" rel="noopener follow">
-                                      <img
-                                        alt="hii this"
-                                        className="w-20 h-[52px]"
-                                        loading="lazy"
-                                        src={data.image}
-                                      />
-                                    </Link>
-
-                                    <div>
-                                      <Link href="" rel="noopener follow">
-                                        <h2 className="text-base font-bold">{data.title}</h2>
-                                      </Link>
-
-                                      <div className="mt-[10px] flex gap-2 text-[#6b6b6b] font-light">
-                                        <p>{data.readTime} ({data.totalWords} words)</p>
-                                        <span>·</span>
-                                        <p>Updated <span>{data.updatedTime}</span></p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </td>
-                                <td className={`pb-8 border-b border-divider ${index === 0 ? "pt-4" : "pt-8"}`}>
-                                </td>
-                                <td className={`pt-4 pb-8 border-b border-divider ${index === 0 ? "pt-4" : "pt-8"}`}>
-                                </td>
-                                <td className={`pt-4 pb-8 border-b border-divider ${index === 0 ? "pt-4" : "pt-8"}`}>
-                                  <button><MoreHorizontal className="w-5 h-5 text-muted-foreground" /></button>
-                                </td>
-                              </tr>
-                            ))
-                          }
-                        </tbody>
-                      </table>
-                      <div>
-                      </div>
-                    </div>
-                  )
-                }
-              </div>
-            )}
-
-            {/* published */}
-            {activeTab === "Published" && (
-              <div>
-                {
-                  draftsData ? (
-                    <div className="text-center py-20">
-                      <p className="font-bold text-sm">No published stories yet.</p>
-                      <p className="text-sm text-muted-foreground mt-1">We can't wait to see what you write!</p>
-                    </div>
-                  ) : (
-                    <div>
-                      <table className="w-full block">
-                        {/* table head */}
-                        <thead className="text-left text-sm font-medium w-full block">
-                          <tr className="w-full table">
-                            <th className="w-[60%] pr-4 font-light text-muted-foreground">Latest</th>
-                            <th className="w-[18%] font-light text-muted-foreground">Publication</th>
-                            <th className="w-[18%] font-light text-muted-foreground">Status</th>
-                            <th className="w-[10%] font-light text-muted-foreground"></th>
-                          </tr>
-                        </thead>
-
-                        {/* table body */}
-                        <tbody className="table w-full">
-                          {
-                            draftsDataSet.map((data, index) => (
-                              <tr key={index}>
-                                <td className="pt-4 pb-8">
-                                  <div className="flex gap-4 mr-12 max-w-[643px] w-full">
-
-                                    <Link href="" rel="noopener follow">
-                                      <img
-                                        alt="hii this"
-                                        className="w-20 h-[52px]"
-                                        loading="lazy"
-                                        src={data.image}
-                                      />
-                                    </Link>
-
-                                    <div>
-                                      <Link href="" rel="noopener follow">
-                                        <h2 className="text-base font-bold">{data.title}</h2>
-                                      </Link>
-                                      <div className="mt-[10px] flex gap-2 text-[#6b6b6b] font-light">
-                                        <p className="font-light">{data.readTime} ({data.totalWords} words)</p>
-                                        <span>·</span>
-                                        <p className="font-light">Updated <span>{data.updatedTime}</span></p>
-                                      </div>
-                                      {/* action button */}
-                                      <div className="mt-4 flex items-center gap-4">
-                                        {/* like */}
-                                        <button className="text-muted-foreground flex items-center text-neutral-500">
-                                          <ThumbsUp className="w-4 h-4 inline-block mr-1 fill-neutral-500" />
-                                          12
-                                        </button>
-
-                                        {/* comment */}
-                                        <button className="text-muted-foreground flex items-center text-neutral-500">
-                                          <MessageCircle className="w-4 h-4 inline-block mr-1 fill-neutral-500" />
-                                          0
-                                        </button>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </td>
-                                <td className="pt-4 pb-8">
-                                </td>
-                                <td className="pt-4 pb-8">
-                                </td>
-                                <td className="pt-4 pb-8">
-                                  <button><MoreHorizontal className="w-5 h-5 text-muted-foreground" /></button>
-                                </td>
-                              </tr>
-                            ))
-                          }
-                        </tbody>
-                      </table>
-                      <div>
-                      </div>
-                    </div>
-                  )
-                }
-              </div>
-            )}
-
-            {/* unlisted */}
-            {activeTab !== "Drafts" && activeTab !== "Published" && (
-              <div className="text-center py-10">
-                <p className="text-base">No {activeTab.toLowerCase()} stories.</p>
-              </div>
-            )}
+            <button
+              className="
+                    md:hidden
+                    opacity-100
+                    absolute top-0 bottom-3 right-0
+                    flex items-center
+                    pl-[44px]
+                    h-fit
+                    pointer-events-none
+                    bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.75)_25%,rgba(255,255,255,0.9)_50%,rgb(255,255,255)_75%)]
+                  "
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
           </div>
         </div>
 
+        {/* Content */}
+        {activeTab === "Drafts" && (
+          <div>
+            {
+              draftsData ? (
+                <div className="text-center py-20">
+                  <p className="font-bold text-sm">No stories in draft.</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Why not <Link href="/write" className="underline">start writing one</Link>?
+                  </p>
+                </div>
+              ) : (
+                <table className="w-full block">
+                  {/* table head */}
+                  <thead className="text-left text-sm font-medium w-full md:block hidden">
+                    <tr className="w-full table">
+                      <th className="w-[60%] pr-4 font-light text-neutral-500">Latest</th>
+                      <th className="w-[18%] font-light text-neutral-500">Publication</th>
+                      <th className="w-[18%] font-light text-neutral-500">Status</th>
+                      <th className="w-[10%] font-light text-neutral-500"></th>
+                    </tr>
+                  </thead>
+
+                  {/* table body */}
+                  <tbody className="table w-full">
+                    {
+                      draftsDataSet.map((data, index) => (
+                        <tr key={index}>
+                          <td className={`${index === 0 ? "pt-4" : "pt-8"} pb-8 border-b border-divider`}>
+                            <div className="flex gap-4 mr-12 max-w-[643px] w-full">
+
+                              <Link href="" rel="noopener follow" className="md:block hidden">
+                                <img
+                                  alt="hii this"
+                                  className="w-20 h-[52px]"
+                                  loading="lazy"
+                                  src={data.image}
+                                />
+                              </Link>
+
+                              <div>
+                                <Link href="" rel="noopener follow">
+                                  <h2 className="text-base font-bold">{data.title}</h2>
+                                </Link>
+
+                                <div className="mt-[10px] flex gap-2 text-[#6b6b6b] font-light flex-wrap md:text-sm text-xs">
+                                  <p>{data.readTime} ({data.totalWords} words)</p>
+                                  <span>·</span>
+                                  <p>Updated <span>{data.updatedTime}</span></p>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td className={`pb-8 border-b border-divider ${index === 0 ? "pt-4" : "pt-8"}`}>
+                          </td>
+                          <td className={`pt-4 pb-8 border-b border-divider ${index === 0 ? "pt-4" : "pt-8"}`}>
+                          </td>
+                          <td className={`pt-4 pb-8 border-b border-divider ${index === 0 ? "pt-4" : "pt-8"}`}>
+                            <button>
+                              <MoreHorizontal className="w-5 h-5 text-muted-foreground" />
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    }
+                  </tbody>
+                </table>
+              )
+            }
+          </div>
+        )}
+
+        {/* published */}
+        {activeTab === "Published" && (
+          <div>
+            {
+              draftsData ? (
+                <div className="text-center py-20">
+                  <p className="font-bold text-sm">No published stories yet.</p>
+                  <p className="text-sm text-muted-foreground mt-1">We can't wait to see what you write!</p>
+                </div>
+              ) : (
+                <div>
+                  <table className="w-full block">
+                    {/* table head */}
+                    <thead className="text-left text-sm font-medium w-full md:block hidden">
+                      <tr className="w-full table">
+                        <th className="w-[60%] pr-4 font-light text-muted-foreground">Latest</th>
+                        <th className="w-[18%] font-light text-muted-foreground">Publication</th>
+                        <th className="w-[18%] font-light text-muted-foreground">Status</th>
+                        <th className="w-[10%] font-light text-muted-foreground"></th>
+                      </tr>
+                    </thead>
+
+                    {/* table body */}
+                    <tbody className="table w-full">
+                      {
+                        draftsDataSet.map((data, index) => (
+                          <tr key={index}>
+                            <td className="pt-4 pb-8">
+                              <div className="flex gap-4 mr-12 max-w-[643px] w-full">
+
+                                <Link href="" rel="noopener follow" className="md:block hidden">
+                                  <img
+                                    alt="hii this"
+                                    className="w-20 h-[52px]"
+                                    loading="lazy"
+                                    src={data.image}
+                                  />
+                                </Link>
+
+                                <div>
+                                  <Link href="" rel="noopener follow">
+                                    <h2 className="text-base font-bold">{data.title}</h2>
+                                  </Link>
+                                  <div className="mt-[10px] flex gap-2 text-[#6b6b6b] font-light flex-wrap md:text-sm text-xs">
+                                    <p className="font-light">{data.readTime} ({data.totalWords} words)</p>
+                                    <span>·</span>
+                                    <p className="font-light">Updated <span>{data.updatedTime}</span></p>
+                                  </div>
+                                  {/* action button */}
+                                  <div className="mt-4 flex items-center gap-4">
+                                    {/* like */}
+                                    <button className="text-muted-foreground flex items-center">
+                                      <ThumbsUp className="w-4 h-4 inline-block mr-1 fill-muted-foreground" />
+                                      12
+                                    </button>
+
+                                    {/* comment */}
+                                    <button className="text-muted-foreground flex items-center">
+                                      <MessageCircle className="w-4 h-4 inline-block mr-1 fill-muted-foreground" />
+                                      0
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="pt-4 pb-8">
+                            </td>
+                            <td className="pt-4 pb-8">
+                            </td>
+                            <td className="pt-4 pb-8">
+                              <button><MoreHorizontal className="w-5 h-5 text-muted-foreground" /></button>
+                            </td>
+                          </tr>
+                        ))
+                      }
+                    </tbody>
+                  </table>
+                  <div>
+                  </div>
+                </div>
+              )
+            }
+          </div>
+        )}
+
+        {/* unlisted */}
+        {activeTab !== "Drafts" && activeTab !== "Published" && (
+          <div className="text-center py-10">
+            <p className="text-base">No {activeTab.toLowerCase()} stories.</p>
+          </div>
+        )}
       </div>
     </Layout>
   );

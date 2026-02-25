@@ -128,8 +128,11 @@
 }
 
 @layer base {
-  * {
+  *,*::before,*::after {
     border-color: hsl(var(--border));
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
   }
 
   body {
@@ -137,8 +140,6 @@
     color: hsl(var(--foreground));
     font-family: var(--font-sohne);
     font-size: 13px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     letter-spacing: 0.45px;
   }
 
@@ -167,10 +168,6 @@
     background-position: calc(100% - 14px);
   }
 }
-
-/* =============================== */
-/* Utilities */
-/* =============================== */
 
 @layer utilities {
   .font-sans {

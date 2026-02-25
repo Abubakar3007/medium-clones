@@ -1,56 +1,122 @@
-import { Layout } from "@/components/Layout";
-import { Bell, Heart, MessageCircle, UserPlus, Star } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import SectionTitle from '@/components/SectionTitle'
+import SettingLayout from '@/components/SettingLayout'
+import SettingsRow from '@/components/SettingsRow'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Separator } from '@/components/ui/separator'
 import { authors } from "@/app/lib/mock-data";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ChevronDown } from 'lucide-react'
 
-const notifications = [
-  { id: "1", type: "clap", author: authors[0], message: 'clapped on your story "Why Every Developer Should Write"', time: "2h ago" },
-  { id: "2", type: "follow", author: authors[2], message: "started following you", time: "5h ago" },
-  { id: "3", type: "comment", author: authors[3], message: 'commented on "The Invisible Design Decisions That Shape Your Day"', time: "1d ago" },
-  { id: "4", type: "highlight", author: authors[4], message: 'highlighted a passage in "Building a Second Brain with Plain Text Files"', time: "2d ago" },
-  { id: "5", type: "follow", author: authors[1], message: "started following you", time: "3d ago" },
-];
-
-const iconMap = {
-  clap: Heart,
-  follow: UserPlus,
-  comment: MessageCircle,
-  highlight: Star,
-};
-
-const NotificationsPage = () => {
+const page = () => {
   return (
-    <Layout>
-      <div className="mx-auto max-w-[728px] px-6 py-10">
-        <h1 className="text-3xl font-bold font-serif mb-8 animate-fade-in">Notifications</h1>
+    <SettingLayout>
+      <div className="animate-fade-in mt-8">
+        <h2 className="text-[32px] font-light mb-8">Email notifications</h2>
 
-        <div className="space-y-1">
-          {notifications.map((notif) => {
-            const Icon = iconMap[notif.type as keyof typeof iconMap] || Bell;
-            return (
-              <div
-                key={notif.id}
-                className="flex items-start gap-4 p-4 rounded-lg hover:bg-surface-hover transition-colors animate-fade-in"
-              >
-                <Avatar className="h-10 w-10 flex-shrink-0">
-                  <AvatarImage src={notif.author.avatar} />
-                  <AvatarFallback>{notif.author.name[0]}</AvatarFallback>
+        <SectionTitle>Story recommendations</SectionTitle>
+
+        <SettingsRow
+          label="New Medium Digest"
+          description="The best stories on Medium personalized based on your interests, as well as outstanding stories selected by our editors."
+          rightContent={<Checkbox defaultChecked />}
+        />
+
+        <SettingsRow
+          label="Recommended reading"
+          description="Featured stories, columns, and collections that we think you'll enjoy based on your reading history."
+          rightContent={<Checkbox defaultChecked />}
+        />
+
+        <Separator className="my-6" />
+
+        <SectionTitle>From writers and publications</SectionTitle>
+
+        <SettingsRow
+          label="New stories added to lists you've saved"
+          rightContent={<Checkbox defaultChecked />}
+        />
+
+        <SettingsRow
+          label="Manage email notifications"
+          rightContent={
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-muted-foreground">Emilina Lomas, Jason McBride</span>
+              <div className="flex -space-x-1">
+                <Avatar className="h-6 w-6 border border-background relative z-20">
+                  <AvatarImage src={authors[2].avatar} />
+                  <AvatarFallback className="text-[8px]">E</AvatarFallback>
                 </Avatar>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm">
-                    <span className="font-medium">{notif.author.name}</span>{" "}
-                    <span className="text-muted-foreground">{notif.message}</span>
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-1">{notif.time}</p>
-                </div>
-                <Icon className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-1" />
+                <Avatar className="h-6 w-6 border border-background relative z-10">
+                  <AvatarImage src={authors[3].avatar} />
+                  <AvatarFallback className="text-[8px]">J</AvatarFallback>
+                </Avatar>
               </div>
-            );
-          })}
-        </div>
-      </div>
-    </Layout>
-  );
-};
+            </div>
+          }
+        />
 
-export default NotificationsPage;
+        <Separator className="my-6" />
+
+        <SectionTitle>Social activity</SectionTitle>
+
+        <SettingsRow label="Follows and matching highlights" rightContent={<Checkbox defaultChecked />} />
+
+        <SettingsRow label="Replies to your responses" rightContent={<Checkbox defaultChecked />} />
+
+        <SettingsRow
+          label="Story mentions"
+          rightContent={
+            <div className="flex items-center gap-1 text-primary text-sm cursor-pointer">
+              <span>In network</span>
+              <ChevronDown className="h-4 w-4 ml-1" />
+            </div>
+          }
+        />
+
+        <Separator className="my-6" />
+
+        <SectionTitle>For writers</SectionTitle>
+
+        <SettingsRow label="Activity on your published stories" rightContent={<Checkbox defaultChecked />} />
+
+        <SettingsRow label="Activity on your lists" rightContent={<Checkbox defaultChecked />} />
+
+        <SettingsRow label="From editors about featuring your stories" rightContent={<Checkbox defaultChecked />} />
+
+        <Separator className="my-6" />
+
+        <SectionTitle>For publications</SectionTitle>
+
+        <SettingsRow label="New submissions" rightContent={<Checkbox defaultChecked />} />
+
+        <Separator className="my-6" />
+
+        <SectionTitle>For Submission</SectionTitle>
+
+        <SettingsRow label="Submission status changes" rightContent={<Checkbox defaultChecked />} />
+
+        <Separator className="my-6" />
+
+        <SectionTitle>Others from medium</SectionTitle>
+
+        <SettingsRow label="New product features from Medium" rightContent={<Checkbox defaultChecked />} />
+
+        <SettingsRow label="Infromation about mediu memberhip" rightContent={<Checkbox defaultChecked />} />
+
+        <SettingsRow label="Writing updates and announcements" rightContent={<Checkbox defaultChecked />} />
+
+        <Separator className="my-6" />
+
+        <SectionTitle>Allow email notifications</SectionTitle>
+
+        <SettingsRow label="You will stil recieve administrative emails even if this settings is off" rightContent={<Checkbox defaultChecked />} />
+
+        <h2 className="text-[32px] font-bold mt-16">Push notifications</h2>
+
+        <p className="text-muted-foreground text-sm mt-8">Open the Medium app from your mobile device to make changes to push notifications.</p>
+      </div>
+    </SettingLayout>
+  )
+}
+
+export default page

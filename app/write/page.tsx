@@ -3,6 +3,7 @@ import { Layout } from "@/components/Layout";
 import { useState, useRef } from "react";
 import { Plus, Image, X, Code, Play, Braces, MoreHorizontal, ImagePlus } from "lucide-react";
 import { PublishModal } from "@/components/PublishModal";
+import { Header } from "@/components/Header";
 
 const WritePage = () => {
   const [title, setTitle] = useState("");
@@ -11,6 +12,7 @@ const WritePage = () => {
   const [coverImage, setCoverImage] = useState<string | undefined>();
   const [publishOpen, setPublishOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -24,8 +26,13 @@ const WritePage = () => {
 
   return (
     <>
-      <Layout onPublish={() => setPublishOpen(true)}>
-        <div className="mx-auto max-w-[740px] px-6 py-12">
+      <div>
+        <Header
+          sidebarOpen={sidebarOpen}
+          setSidebarOpen={setSidebarOpen}
+        />
+
+        <div className="mx-auto max-w-[748px] px-5 py-12">
           {/* Cover image */}
           {coverImage && (
             <div className="relative mb-6 rounded overflow-hidden">
@@ -106,7 +113,7 @@ const WritePage = () => {
             </div>
           </div>
         </div>
-      </Layout>
+      </div>
 
       <PublishModal
         open={publishOpen}
