@@ -36,6 +36,7 @@ const page = () => {
     const [isStarted, setIsStarted] = useState(false);
 
     const { user } = useAuth();
+    console.log(user)
     return (
         <div className="bg-[#242424]">
             {/* header */}

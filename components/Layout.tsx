@@ -20,7 +20,7 @@ interface LayoutProps {
 export function Layout({ children, hideHeader, onPublish }: LayoutProps) {
   const { id } = useParams();
 
-  const { login } = useAuth();
+  const { user } = useAuth();
 
   // reading list demo data
   const readingLists = [{
@@ -40,8 +40,11 @@ export function Layout({ children, hideHeader, onPublish }: LayoutProps) {
 
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const pathname = usePathname();
+  
+  const isSettingsPage = pathname.startsWith("/settings");
+  const isProfilePage = pathname.startsWith("/profile");
 
-  const hideAsideRoutes = ["/library", "/tag", "/stories", "/stats", "/write", "/explore-topics", "/blog", "/careers","/plans","/policy","/privacy","/rules","/terms"];
+  const hideAsideRoutes = ["/library", "/tag", "/stories", "/stats", "/write", "/explore-topics", "/blog", "/careers", "/plans", "/policy", "/privacy", "/rules", "/terms"];
   const shouldHideAside = hideAsideRoutes.some((route) =>
     pathname.startsWith(route)
   );
@@ -53,8 +56,6 @@ export function Layout({ children, hideHeader, onPublish }: LayoutProps) {
 
   const followingUsers = authors.slice(0, 2);
 
-  const isSettingsPage = pathname.startsWith("/settings");
-  const isProfilePage = pathname.startsWith("/profile");
 
   return (
     <div className="min-h-screen bg-background">
@@ -68,10 +69,11 @@ export function Layout({ children, hideHeader, onPublish }: LayoutProps) {
 
       <div className="lg:flex min-h-[calc(100vh-56px)]">
         {
-          !login && (
-            pathname !== "/write" && (
-              <LeftSidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-            )
+          !(!user && pathname === "/write") && (
+            <LeftSidebar
+              sidebarOpen={sidebarOpen}
+              setSidebarOpen={setSidebarOpen}
+            />
           )
         }
 
@@ -81,14 +83,14 @@ export function Layout({ children, hideHeader, onPublish }: LayoutProps) {
           }}
           className="flex-1 transition duration-300 ease-in-out lg:min-w-auto min-w-full"
         >
-          <div className={`${!login ? 'max-w-[1336px]' : 'max-w-full'} w-full [@media(min-width:900px)]:flex mx-auto justify-evenly`}>
+          <div className={`${user ? 'max-w-[1336px]' : 'max-w-full'} w-full [@media(min-width:900px)]:flex mx-auto justify-evenly`}>
             <main className={`flex-1 transition-all duration-300 ${!shouldHideAside ? '[@media(min-width:900px)]:max-w-[calc(100%_-_368px)]' : ''} ease-in-out`}>
               {children}
             </main>
             {
               !shouldHideAside && (
                 isProfilePage ? (
-                  <aside className={`hidden [@media(min-width:900px)]:block transition-all ease-in-out duration-300 shrink-0 pl-10 pr-6 border-l border-divider pb-10 overflow-auto`}>
+                  <aside className={`hidden [@media(min-width:900px)]:block transition-all ease-in-out duration-300 shrink-0 pl-10 pr-6 border-l border-divider w-[368px] pb-10 overflow-auto`}>
                     <div className="sticky top-2 pt-10 space-y-6 flex flex-col justify-between h-full">
                       <div>
                         {/* User info */}

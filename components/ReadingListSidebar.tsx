@@ -34,7 +34,7 @@ export function ReadingListSidebar() {
           </div>
         ))}
       </div>
-      <Link href="/me/lists" className="text-sm text-gray-500 hover:underline mt-4 inline-block">
+      <Link href="/library" className="text-sm text-gray-500 hover:underline mt-4 inline-block">
         See all ({readingList.length})
       </Link>
     </section>

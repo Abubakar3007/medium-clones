@@ -10,6 +10,7 @@ import { ResponsesPanel } from "@/components/ResponsesPanel";
 import { MoreFromAuthor } from "@/components/MoreFromAuthor";
 import { LeftSidebar } from "@/components/LeftSidebar";
 import Link from 'next/link';
+import { Button } from "@/components/ui/button";
 
 const StoryPage = () => {
   const { id } = useParams();
@@ -20,11 +21,9 @@ const StoryPage = () => {
 
   return (
     <Layout>
-      <div className="flex items-start">
-        {/* article */}
         <div className="flex-1">
-          <article className="mx-auto max-w-[680px] py-10">
-            <h1 className="text-[32px] sm:text-[42px] font-bold font-serif leading-[1.15] mb-4 animate-fade-in">
+          <article className="mx-auto max-w-[680px] py-10 md:px-0 px-6">
+            <h1 className="text-[32px] sm:text-[42px] font-bold leading-[1.15] mb-4 animate-fade-in">
               {story.title}
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed mb-8 animate-fade-in" style={{ animationDelay: "0.05s" }}>
@@ -32,7 +31,7 @@ const StoryPage = () => {
             </p>
 
             {/* Author info */}
-            <div className="flex items-center gap-4 mb-8 animate-fade-in" style={{ animationDelay: "0.1s" }}>
+            <div className="flex items-center flex-wrap gap-4 mb-8 animate-fade-in" style={{ animationDelay: "0.1s" }}>
               {/* Avatar */}
               <Avatar className="h-11 w-11">
                 <AvatarImage src={story.author.avatar} />
@@ -43,7 +42,7 @@ const StoryPage = () => {
                 {story.author.name}
               </Link>
               {/* Follow button */}
-              <button className="text-sm font-semibold border border-foreground/20 rounded-3xl py-1.5 px-3">Follow</button>
+              <Button variant="outline" className="text-sm h-9">Follow</Button>
               {/* Read time */}
               <span className="text-sm text-muted-foreground">{story.readTime} min read</span>
               {/* Published date */}
@@ -116,18 +115,17 @@ const StoryPage = () => {
           </article>
 
           <div className="pt-16 pb-20 border-t border-gray-200">
-            <div className="max-w-[680px] mx-auto">
+            <div className="max-w-[680px] mx-auto md:px-0 px-6">
               {/* Responses section */}
               <ResponsesSection commentCount={story.comments} onOpenPanel={() => setPanelOpen(true)} />
             </div>
           </div>
 
-          <div className="bg-[#f7f7f7cc] py-20">
+          <div className="bg-[#f7f7f7cc] py-20 px-6">
             {/* More from author + recommended */}
             <MoreFromAuthor author={story.author} currentStoryId={story.id} />
           </div>
         </div>
-      </div>
       {/* Full-page responses panel */}
       <ResponsesPanel open={panelOpen} onClose={() => setPanelOpen(false)} commentCount={story.comments} />
     </Layout>
@@ -162,7 +160,7 @@ function ActionBar({ claps, setClaps, bookmarked, setBookmarked, comments, borde
           <Bookmark className={`h-5 w-5 ${bookmarked ? "fill-foreground text-foreground" : "text-muted-foreground"}`} />
         </button>
         {/* play */}
-        <button>
+        <button className="sm:block hidden">
           <CirclePlay className="h-5 w-5 text-muted-foreground hover:text-foreground" />
         </button>
         {/* share */}
@@ -170,7 +168,7 @@ function ActionBar({ claps, setClaps, bookmarked, setBookmarked, comments, borde
           <Share className="h-5 w-5 hover:text-foreground" />
         </button>
         {/* more */}
-        <button>
+        <button className="sm:block hidden">
           <MoreHorizontal className="h-5 w-5 text-muted-foreground hover:text-foreground" />
         </button>
       </div>

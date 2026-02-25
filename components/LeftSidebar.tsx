@@ -43,7 +43,7 @@ export function LeftSidebar({ sidebarOpen, setSidebarOpen }: LeftSidebarProps) {
   return (
     <>
       <div
-        className="bg-white block transition-all ease-in duration-200 lg:block hidden"
+        className="bg-white transition-all ease-in duration-200 lg:block hidden"
         style={{
           width: sidebarOpen ? "240px" : "0px",
         }}
@@ -55,7 +55,7 @@ export function LeftSidebar({ sidebarOpen, setSidebarOpen }: LeftSidebarProps) {
                 transform: sidebarOpen ? "translateX(0px)" : "translateX(240px)",
                 transition: "transform 300ms ease-in-out"
               }}
-              className="sticky top-[57px] h-[calc(100vh-57px)] w-full flex flex-col bg-white border-r border-r-[#f2f2f2] z-[500]">
+              className="sticky top-[57px] h-[calc(100vh-57px)] w-full flex flex-col bg-white border-r border-r-[#f2f2f2] z-20">
               <div className="overflow-hidden pb-8 pt-11">
 
 

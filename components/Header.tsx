@@ -36,7 +36,7 @@ export function Header({ sidebarOpen, setSidebarOpen, onPublish, }: HeaderProps)
 
           {/* logo */}
           <Link href="/" className='text-3xl font-bold'>
-            <img src="./logo/black-logo.png" alt="logo" className='w-14' />
+            <img src="../logo/black-logo.png" alt="logo" className='w-14' />
           </Link>
 
           {

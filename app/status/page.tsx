@@ -17,7 +17,9 @@ const page = () => {
         <div className="flex flex-col container px-4 py-2 space-y-4 mx-auto md:px-2 md:max-w-[718px] md:py-4 md:space-y-6 flex-1">
             <div className="flex-1 sm:px-4 py-2 space-y-6">
                 <div className="flex items-center justify-between min-h-9 mt-2">
-                    <Link className="text-3xl font-medium" href="/">Prisiam</Link>
+                    <Link className="text-3xl font-medium" href="/">
+                        <img src="../logo/black-logo.png" alt="" className="w-14"/>
+                    </Link>
                     <div className="hidden sm:inline-flex items-center space-x-4">
                         <Button title="Report a problem" variant="outline" className="text-sm px-2.5 rounded-sm h-8 border-muted-foreground">Report a problem</Button>
                         <Button title="Subscribe to updates" type="button" className="text-sm px-2.5 rounded-sm h-8">Subscribe to updates</Button>

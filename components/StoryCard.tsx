@@ -48,7 +48,7 @@ export function StoryCard({ story }: StoryCardProps) {
         <div className="md:flex-1 md:min-w-0">
           <div className="md:block flex gap-6">
             {/* Title + Subtitle */}
-            <Link href={`/story/${story.id}`}>
+            <Link href={`/stories/${story.id}`}>
               <h2 className="md:text-2xl text-lg font-bold mb-2">
                 {story.title}
               </h2>
@@ -61,7 +61,7 @@ export function StoryCard({ story }: StoryCardProps) {
             {/* Mobile Image */}
             {story.image && (
               <Link
-                href={`/story/${story.id}`}
+                href={`/stories/${story.id}`}
                 className="flex-shrink-0 md:hidden"
               >
                 <img
@@ -137,7 +137,7 @@ export function StoryCard({ story }: StoryCardProps) {
         {/* Desktop Image */}
         {story.image && (
           <Link
-            href={`/story/${story.id}`}
+            href={`/stories/${story.id}`}
             className="flex-shrink-0 md:block hidden"
           >
             <img

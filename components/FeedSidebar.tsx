@@ -42,7 +42,7 @@ export function FeedSidebar({ sidebarOpen }: FeedSidebarProps) {
               ))}
             </div>
 
-            <Link href="/story" className="text-muted-foreground text-sm hover:underline">See the full list</Link>
+            <Link href="/stories" className="text-muted-foreground text-sm hover:underline">See the full list</Link>
           </section>
 
           {/* Recommended Topics */}
@@ -60,7 +60,7 @@ export function FeedSidebar({ sidebarOpen }: FeedSidebarProps) {
               ))}
             </div>
 
-            <Link href="/story" className="text-muted-foreground text-sm hover:underline">See more topics</Link>
+            <Link href="/topic" className="text-muted-foreground text-sm hover:underline">See more topics</Link>
           </section>
 
           {/* Who to follow */}
@@ -87,7 +87,7 @@ export function FeedSidebar({ sidebarOpen }: FeedSidebarProps) {
                 </div>
               ))}
             </div>
-            <Link href="/story" className="text-muted-foreground text-sm hover:underline">See more suggestions</Link>
+            <Link href="/following" className="text-muted-foreground text-sm hover:underline">See more suggestions</Link>
           </section>
 
           {/* Reading List */}
